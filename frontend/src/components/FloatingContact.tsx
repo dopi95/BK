@@ -1,14 +1,35 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { usePathname } from 'next/navigation'
 
 export default function FloatingContact() {
   const [isOpen, setIsOpen] = useState(false)
+  const [isModalOpen, setIsModalOpen] = useState(false)
   const pathname = usePathname()
   
-  // Hide on contact page
-  if (pathname === '/contact') {
+  // Check for modals
+  useEffect(() => {
+    const checkForModals = () => {
+      const modals = document.querySelectorAll('.fixed.inset-0.z-50')
+      setIsModalOpen(modals.length > 0)
+    }
+    
+    // Check immediately
+    checkForModals()
+    
+    // Set up observer for DOM changes
+    const observer = new MutationObserver(checkForModals)
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true
+    })
+    
+    return () => observer.disconnect()
+  }, [])
+  
+  // Hide on contact page or when modals are open
+  if (pathname === '/contact' || isModalOpen) {
     return null
   }
 
