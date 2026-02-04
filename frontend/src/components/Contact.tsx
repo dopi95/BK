@@ -34,7 +34,7 @@ export default function Contact() {
             Get In Touch
           </h2>
           <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-            Ready to find your dream property? Contact us today and let's make it happen.
+            Ready to find your dream property? Contact us today and let&apos;s make it happen.
           </p>
         </div>
 
