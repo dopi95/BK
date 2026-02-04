@@ -21,6 +21,14 @@ export default function Header() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId)
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' })
+    }
+    setIsMenuOpen(false) // Close mobile menu after clicking
+  }
+
   return (
     <header className={`fixed top-0 w-full z-50 transition-all duration-300 ${
       isScrolled 
@@ -44,24 +52,24 @@ export default function Header() {
 
           {/* Desktop Menu */}
           <div className="hidden lg:flex items-center space-x-8">
-            <a href="#home" className="text-gray-700 dark:text-gray-300 hover:text-brand-600 dark:hover:text-brand-400 transition-all duration-200 hover:scale-105">
+            <button onClick={() => scrollToSection('home')} className="text-gray-700 dark:text-gray-300 hover:text-brand-600 dark:hover:text-brand-400 transition-all duration-200 hover:scale-105">
               {t('home')}
-            </a>
-            <a href="#about" className="text-gray-700 dark:text-gray-300 hover:text-brand-600 dark:hover:text-brand-400 transition-all duration-200 hover:scale-105">
+            </button>
+            <button onClick={() => scrollToSection('about')} className="text-gray-700 dark:text-gray-300 hover:text-brand-600 dark:hover:text-brand-400 transition-all duration-200 hover:scale-105">
               {t('about')}
-            </a>
-            <a href="#services" className="text-gray-700 dark:text-gray-300 hover:text-brand-600 dark:hover:text-brand-400 transition-all duration-200 hover:scale-105">
+            </button>
+            <button onClick={() => scrollToSection('services')} className="text-gray-700 dark:text-gray-300 hover:text-brand-600 dark:hover:text-brand-400 transition-all duration-200 hover:scale-105">
               {t('services')}
-            </a>
-            <a href="#properties" className="text-gray-700 dark:text-gray-300 hover:text-brand-600 dark:hover:text-brand-400 transition-all duration-200 hover:scale-105">
+            </button>
+            <button onClick={() => scrollToSection('properties')} className="text-gray-700 dark:text-gray-300 hover:text-brand-600 dark:hover:text-brand-400 transition-all duration-200 hover:scale-105">
               {t('properties')}
-            </a>
+            </button>
           </div>
 
           {/* Controls */}
           <div className="flex items-center space-x-4">
             {/* CTA Button */}
-            <button className="hidden md:block bg-gradient-to-r from-brand-500 to-brand-600 hover:from-brand-600 hover:to-brand-700 text-white px-6 py-2.5 rounded-full font-medium shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-200" onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}>
+            <button onClick={() => scrollToSection('contact')} className="hidden md:block bg-gradient-to-r from-brand-500 to-brand-600 hover:from-brand-600 hover:to-brand-700 text-white px-6 py-2.5 rounded-full font-medium shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-200">
               {t('getStarted')}
             </button>
 
@@ -141,22 +149,22 @@ export default function Header() {
         }`}>
           <div className="bg-white/90 dark:bg-gray-900/90 backdrop-blur-md rounded-lg p-4 shadow-lg animate-slide-down">
             <div className="flex flex-col space-y-4">
-              <a href="#home" className="text-gray-700 dark:text-gray-300 hover:text-brand-600 dark:hover:text-brand-400 transition-colors duration-200 py-2">
+              <button onClick={() => scrollToSection('home')} className="text-gray-700 dark:text-gray-300 hover:text-brand-600 dark:hover:text-brand-400 transition-colors duration-200 py-2 text-left">
                 {t('home')}
-              </a>
-              <a href="#about" className="text-gray-700 dark:text-gray-300 hover:text-brand-600 dark:hover:text-brand-400 transition-colors duration-200 py-2">
+              </button>
+              <button onClick={() => scrollToSection('about')} className="text-gray-700 dark:text-gray-300 hover:text-brand-600 dark:hover:text-brand-400 transition-colors duration-200 py-2 text-left">
                 {t('about')}
-              </a>
-              <a href="#services" className="text-gray-700 dark:text-gray-300 hover:text-brand-600 dark:hover:text-brand-400 transition-colors duration-200 py-2">
+              </button>
+              <button onClick={() => scrollToSection('services')} className="text-gray-700 dark:text-gray-300 hover:text-brand-600 dark:hover:text-brand-400 transition-colors duration-200 py-2 text-left">
                 {t('services')}
-              </a>
-              <a href="#properties" className="text-gray-700 dark:text-gray-300 hover:text-brand-600 dark:hover:text-brand-400 transition-colors duration-200 py-2">
+              </button>
+              <button onClick={() => scrollToSection('properties')} className="text-gray-700 dark:text-gray-300 hover:text-brand-600 dark:hover:text-brand-400 transition-colors duration-200 py-2 text-left">
                 {t('properties')}
-              </a>
+              </button>
               
               {/* Mobile Controls */}
               <div className="flex items-center justify-between pt-4 border-t border-gray-200 dark:border-gray-700">
-                <button className="bg-gradient-to-r from-brand-500 to-brand-600 hover:from-brand-600 hover:to-brand-700 text-white px-6 py-3 rounded-full font-medium shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-200 flex-1 mr-4" onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}>
+                <button onClick={() => scrollToSection('contact')} className="bg-gradient-to-r from-brand-500 to-brand-600 hover:from-brand-600 hover:to-brand-700 text-white px-6 py-3 rounded-full font-medium shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-200 flex-1 mr-4">
                   {t('getStarted')}
                 </button>
                 

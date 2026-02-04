@@ -27,23 +27,20 @@ export default function Hero() {
   }, [])
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <section id="home" className="relative h-screen flex items-center justify-center overflow-hidden">
       {/* Background Slider */}
-      <div className="absolute inset-0 z-0 overflow-hidden">
-        <div 
-          className="flex transition-transform duration-1000 ease-in-out h-full"
-          style={{ transform: `translateX(-${currentSlide * 100}%)` }}
-        >
-          {backgroundImages.map((image, index) => (
-            <div
-              key={index}
-              className="w-full h-full flex-shrink-0 relative"
-            >
-              <div className="absolute inset-0 bg-cover bg-center" style={{backgroundImage: `url(${image})`}}></div>
-              <div className="absolute inset-0 bg-black/60"></div>
-            </div>
-          ))}
-        </div>
+      <div className="absolute inset-0 z-0">
+        {backgroundImages.map((image, index) => (
+          <div
+            key={index}
+            className={`absolute inset-0 transition-opacity duration-1500 ease-in-out ${
+              index === currentSlide ? 'opacity-100' : 'opacity-0'
+            }`}
+          >
+            <div className="absolute inset-0 bg-cover bg-center" style={{backgroundImage: `url(${image})`}}></div>
+            <div className="absolute inset-0 bg-black/60"></div>
+          </div>
+        ))}
       </div>
 
 
