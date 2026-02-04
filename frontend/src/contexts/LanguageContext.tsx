@@ -20,6 +20,11 @@ const translations = {
     getStarted: 'Contact',
     brandName: 'Beton Kegna',
     tagline: 'Your trusted real estate consultancy partner in Ethiopia',
+    contactUs: 'Contact Us',
+    exploreProperties: 'Explore Properties',
+    happyClients: 'Happy Clients',
+    keysDelivered: 'Keys Delivered',
+    unlockingDreams: 'Unlocking Your Dreams',
   },
   am: {
     home: 'መነሻ',
@@ -30,6 +35,11 @@ const translations = {
     getStarted: 'ያግኙን',
     brandName: 'ቤቶን ከኛ',
     tagline: 'በኢትዮጵያ የሚታመን የሪል እስቴት አማካሪ አጋርዎ',
+    contactUs: 'ያግኙን',
+    exploreProperties: 'ንብረቶችን ይመልከቱ',
+    happyClients: 'ደስ የሚል ተጠቃሚዎች',
+    keysDelivered: 'የተሰጡ ቁልፎች',
+    unlockingDreams: 'የህልሞችን መክፈት',
   }
 }
 

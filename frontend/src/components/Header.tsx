@@ -125,7 +125,7 @@ export default function Header() {
 
             {/* Mobile Menu Button */}
             <button 
-              className="lg:hidden p-2 text-gray-700 dark:text-gray-300 hover:text-brand-600 dark:hover:text-brand-400 transition-colors duration-200"
+              className="lg:hidden p-2 text-brand-600 dark:text-brand-400 hover:text-brand-700 dark:hover:text-brand-300 transition-colors duration-200"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
             >
               <svg className={`w-6 h-6 transition-transform duration-200 ${isMenuOpen ? 'rotate-90' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -184,17 +184,17 @@ export default function Header() {
                   
                   {/* Mobile Dropdown */}
                   {isLangDropdownOpen && (
-                    <div className="absolute top-full mt-1 left-0 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 py-1 z-50 min-w-[120px]">
+                    <div className="absolute bottom-full mb-1 right-0 bg-white dark:bg-gray-800 rounded-lg shadow-xl border border-gray-200 dark:border-gray-700 py-2 z-[100] min-w-[120px]">
                       <button
                         onClick={() => { if (language !== 'en') toggleLanguage(); setIsLangDropdownOpen(false); }}
-                        className="flex items-center space-x-2 w-full px-3 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+                        className="flex items-center space-x-2 w-full px-4 py-3 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
                       >
                         <Image src="/assets/uk.svg" alt="English" width={16} height={12} className="rounded-sm" />
                         <span>EN</span>
                       </button>
                       <button
                         onClick={() => { if (language !== 'am') toggleLanguage(); setIsLangDropdownOpen(false); }}
-                        className="flex items-center space-x-2 w-full px-3 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+                        className="flex items-center space-x-2 w-full px-4 py-3 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
                       >
                         <Image src="/assets/et.svg" alt="አማርኛ" width={16} height={12} className="rounded-sm" />
                         <span>አማ</span>
