@@ -27,7 +27,7 @@ export default function About() {
   const socialLinks = [
     {
       name: 'YouTube',
-      url: '#',
+      url: 'https://youtube.com/@fanuel_properties?si=ICLDsVBs7s4YCL1s',
       color: 'hover:bg-red-500',
       icon: (
         <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
@@ -37,7 +37,7 @@ export default function About() {
     },
     {
       name: 'TikTok',
-      url: '#',
+      url: 'https://tiktok.com/@fanuelakoyaproperties',
       color: 'hover:bg-black',
       icon: (
         <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
@@ -47,7 +47,7 @@ export default function About() {
     },
     {
       name: 'Instagram',
-      url: '#',
+      url: 'https://instagram.com/fanu_el63',
       color: 'hover:bg-gradient-to-r hover:from-purple-500 hover:to-pink-500',
       icon: (
         <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
@@ -121,8 +121,6 @@ export default function About() {
                     key={index}
                     href={social.url}
                     className={`w-12 h-12 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center text-gray-600 dark:text-gray-300 transition-all duration-300 hover:scale-110 hover:shadow-lg hover:text-white ${social.color}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
                   >
                     {social.icon}
                   </a>
