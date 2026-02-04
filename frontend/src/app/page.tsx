@@ -1,7 +1,7 @@
 export default function Home() {
   return (
     <main className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
-      <div className="container mx-auto px-4 py-16">
+      <div id="home" className="container mx-auto px-4 py-16">
         <div className="text-center">
           <h1 className="text-5xl font-bold text-gray-900 mb-4">
             ቤቶን ከኛ
@@ -14,7 +14,7 @@ export default function Home() {
             We help you find the perfect property for your needs.
           </p>
           
-          <div className="grid md:grid-cols-3 gap-8 mt-16">
+          <div id="services" className="grid md:grid-cols-3 gap-8 mt-16">
             <div className="bg-white p-6 rounded-lg shadow-lg">
               <h3 className="text-xl font-semibold mb-4 text-primary-700">Property Sales</h3>
               <p className="text-gray-600">Find your dream home with our extensive property listings</p>
