@@ -39,7 +39,7 @@ export default function Header() {
         <div className="flex justify-between items-center">
           {/* Logo & Brand */}
           <div className="flex items-center space-x-3 animate-fade-in">
-            <Logo className="animate-bounce-gentle" />
+            <img src="/assets/logo.jpg" alt="Beton Kegna Logo" className="h-12 w-auto" />
             <button 
               onClick={() => scrollToSection('home')}
               className="flex flex-col hover:scale-105 transition-transform duration-200 cursor-pointer"
