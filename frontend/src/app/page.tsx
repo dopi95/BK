@@ -3,6 +3,7 @@ import About from '@/components/About'
 import Services from '@/components/Services'
 import Properties from '@/components/Properties'
 import FAQ from '@/components/FAQ'
+import Footer from '@/components/Footer'
 
 export default function Home() {
   return (
@@ -12,6 +13,7 @@ export default function Home() {
       <Services />
       <Properties />
       <FAQ />
+      <Footer />
     </main>
   )
 }

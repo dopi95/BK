@@ -2,9 +2,11 @@
 
 import { useLanguage } from '@/contexts/LanguageContext'
 import { useState, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 
 export default function Hero() {
   const { t } = useLanguage()
+  const router = useRouter()
   const [isVisible, setIsVisible] = useState(false)
   const [currentSlide, setCurrentSlide] = useState(0)
 
@@ -78,9 +80,12 @@ export default function Hero() {
       <div className="relative z-10 w-full max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 text-center pt-20 sm:pt-36 md:pt-48 lg:pt-52">
         <div className={`transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
           {/* Animated Buttons */}
-          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 md:gap-6 justify-center items-center animate-fade-in-up delay-500 px-2 mb-8 sm:mb-12 md:mb-16 mt-8 lg:mt-12 xl:mt-16">
-            <button className="w-full sm:w-auto sm:min-w-[180px] md:min-w-[200px] group relative overflow-hidden bg-gradient-to-r from-brand-500 to-brand-600 hover:from-brand-600 hover:to-brand-700 text-white px-4 sm:px-6 md:px-8 lg:px-10 py-3 sm:py-3.5 md:py-4 rounded-lg font-semibold shadow-lg transform hover:scale-105 transition-all duration-300">
-              <span className="relative z-10 flex items-center justify-center space-x-2">
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 md:gap-6 justify-center items-center animate-fade-in-up delay-500 px-2 mb-8 sm:mb-12 md:mb-16 mt-8 lg:mt-12 xl:mt-16 relative z-20">
+            <button 
+              className="w-full sm:w-auto sm:min-w-[180px] md:min-w-[200px] bg-gradient-to-r from-brand-500 to-brand-600 hover:from-brand-600 hover:to-brand-700 text-white px-4 sm:px-6 md:px-8 lg:px-10 py-3 sm:py-3.5 md:py-4 rounded-lg font-semibold shadow-lg transform hover:scale-105 transition-all duration-300 cursor-pointer" 
+              onClick={() => router.push('/contact')}
+            >
+              <span className="flex items-center justify-center space-x-2">
                 <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                 </svg>
@@ -88,7 +93,10 @@ export default function Hero() {
               </span>
             </button>
             
-            <button className="w-full sm:w-auto sm:min-w-[180px] md:min-w-[200px] group relative bg-white/10 backdrop-blur-md border border-brand-400 text-brand-400 hover:bg-brand-500 hover:text-white px-4 sm:px-6 md:px-8 lg:px-10 py-3 sm:py-3.5 md:py-4 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105">
+            <button 
+              className="w-full sm:w-auto sm:min-w-[180px] md:min-w-[200px] bg-white/10 backdrop-blur-md border border-brand-400 text-brand-400 hover:bg-brand-500 hover:text-white px-4 sm:px-6 md:px-8 lg:px-10 py-3 sm:py-3.5 md:py-4 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 cursor-pointer" 
+              onClick={() => document.getElementById('properties')?.scrollIntoView({ behavior: 'smooth' })}
+            >
               <span className="flex items-center justify-center space-x-2">
                 <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 8h5" />

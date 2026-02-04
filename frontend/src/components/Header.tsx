@@ -22,11 +22,17 @@ export default function Header() {
   }, [])
 
   const scrollToSection = (sectionId: string) => {
+    // If we're on contact page, navigate to home first
+    if (window.location.pathname === '/contact') {
+      window.location.href = `/#${sectionId}`
+      return
+    }
+    
     const element = document.getElementById(sectionId)
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' })
     }
-    setIsMenuOpen(false) // Close mobile menu after clicking
+    setIsMenuOpen(false)
   }
 
   return (
@@ -43,6 +49,7 @@ export default function Header() {
             <button 
               onClick={() => scrollToSection('home')}
               className="flex flex-col hover:scale-105 transition-transform duration-200 cursor-pointer"
+              suppressHydrationWarning={true}
             >
               <div className="text-xl font-bold bg-gradient-to-r from-brand-600 to-brand-500 bg-clip-text text-transparent">
                 {language === 'am' ? 'ቤቶን ከኛ' : 'ቤቶን ከኛ'}
@@ -72,7 +79,7 @@ export default function Header() {
           {/* Controls */}
           <div className="flex items-center space-x-4">
             {/* CTA Button */}
-            <button onClick={() => scrollToSection('contact')} className="hidden md:block bg-gradient-to-r from-brand-500 to-brand-600 hover:from-brand-600 hover:to-brand-700 text-white px-6 py-2.5 rounded-full font-medium shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-200">
+            <button onClick={() => window.location.href = '/contact'} className="hidden md:block bg-gradient-to-r from-brand-500 to-brand-600 hover:from-brand-600 hover:to-brand-700 text-white px-6 py-2.5 rounded-full font-medium shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-200" suppressHydrationWarning={true}>
               {t('getStarted')}
             </button>
 
@@ -81,6 +88,7 @@ export default function Header() {
               <button
                 onClick={() => setIsLangDropdownOpen(!isLangDropdownOpen)}
                 className="flex items-center space-x-2 px-3 py-2 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-all duration-200 hover:scale-105"
+                suppressHydrationWarning={true}
               >
                 <Image
                   src={language === 'en' ? '/assets/uk.svg' : '/assets/et.svg'}
@@ -122,6 +130,7 @@ export default function Header() {
             <button
               onClick={toggleTheme}
               className="hidden lg:block p-2 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-all duration-200 hover:scale-105"
+              suppressHydrationWarning={true}
             >
               {theme === 'light' ? (
                 <svg className="w-5 h-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -138,6 +147,7 @@ export default function Header() {
             <button 
               className="lg:hidden p-2 text-brand-600 dark:text-brand-400 hover:text-brand-700 dark:hover:text-brand-300 transition-colors duration-200"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
+              suppressHydrationWarning={true}
             >
               <svg className={`w-6 h-6 transition-transform duration-200 ${isMenuOpen ? 'rotate-90' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={isMenuOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"} />
@@ -167,7 +177,7 @@ export default function Header() {
               
               {/* Mobile Controls */}
               <div className="flex items-center justify-between pt-4 border-t border-gray-200 dark:border-gray-700">
-                <button onClick={() => scrollToSection('contact')} className="bg-gradient-to-r from-brand-500 to-brand-600 hover:from-brand-600 hover:to-brand-700 text-white px-6 py-3 rounded-full font-medium shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-200 flex-1 mr-4">
+                <button onClick={() => window.location.href = '/contact'} className="bg-gradient-to-r from-brand-500 to-brand-600 hover:from-brand-600 hover:to-brand-700 text-white px-6 py-3 rounded-full font-medium shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-200 flex-1 mr-4" suppressHydrationWarning={true}>
                   {t('getStarted')}
                 </button>
                 
@@ -177,6 +187,7 @@ export default function Header() {
                   <button
                     onClick={() => setIsLangDropdownOpen(!isLangDropdownOpen)}
                     className="flex items-center space-x-2 px-3 py-2 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-all duration-200"
+                    suppressHydrationWarning={true}
                   >
                     <Image
                       src={language === 'en' ? '/assets/uk.svg' : '/assets/et.svg'}
@@ -218,6 +229,7 @@ export default function Header() {
                   <button
                     onClick={toggleTheme}
                     className="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-all duration-200"
+                    suppressHydrationWarning={true}
                   >
                     {theme === 'light' ? (
                       <svg className="w-5 h-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
