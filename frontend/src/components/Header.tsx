@@ -40,14 +40,17 @@ export default function Header() {
           {/* Logo & Brand */}
           <div className="flex items-center space-x-3 animate-fade-in">
             <Logo className="animate-bounce-gentle" />
-            <div className="flex flex-col">
+            <button 
+              onClick={() => scrollToSection('home')}
+              className="flex flex-col hover:scale-105 transition-transform duration-200 cursor-pointer"
+            >
               <div className="text-xl font-bold bg-gradient-to-r from-brand-600 to-brand-500 bg-clip-text text-transparent">
                 {language === 'am' ? 'ቤቶን ከኛ' : 'ቤቶን ከኛ'}
               </div>
               <div className="text-sm text-gray-600 dark:text-gray-400">
                 {language === 'am' ? 'Beton Kegna' : 'Beton Kegna'}
               </div>
-            </div>
+            </button>
           </div>
 
           {/* Desktop Menu */}

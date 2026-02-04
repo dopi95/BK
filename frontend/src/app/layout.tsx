@@ -10,6 +10,9 @@ const inter = Inter({ subsets: ['latin'] })
 export const metadata: Metadata = {
   title: 'Beton Kegna - ቤቶን ከኛ | Real Estate Consultancy',
   description: 'Professional real estate consultancy services in Ethiopia. Find your perfect property with Beton Kegna.',
+  icons: {
+    icon: '/favicon.ico',
+  },
 }
 
 export default function RootLayout({
