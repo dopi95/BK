@@ -1,4 +1,4 @@
-# Beton Kegna - Real Estate Website
+# <img src="frontend/public/assets/logo.jpg" alt="Beton Kegna Logo" width="40" height="40"> Beton Kegna - Real Estate Website
 
 A modern, responsive real estate website for Beton Kegna, showcasing premium properties and services in Addis Ababa, Ethiopia.
 
