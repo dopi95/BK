@@ -39,7 +39,7 @@ export default function FAQ() {
     },
     {
       question: language === 'am' ? 'ቤቶን ከኛ ምን ያህል ልምድ አለው?' : 'How much experience does Beton Kegna have?',
-      answer: language === 'am' ? 'ቤቶን ከኛ በሪል እስቴት ዘርፍ ከ15 ዓመት በላይ ልምድ አለው። ከ500 በላይ ደንበኞችን አስደስተናል እና ከ1000 በላይ ቁልፎችን አስረክበናል።' : 'Beton Kegna has over 15 years of experience in the real estate sector. We have served over 500 happy clients and delivered over 1000 keys.'
+      answer: language === 'am' ? 'ቤቶን ከኛ በሪል እስቴት ዘርፍ ከ2 ዓመት በላይ ልምድ አለው። ከ100+ ደንበኞችን አስደስተናል እና ከ200M+ ብር ግብይቶችን አስተናግደናል።' : 'Beton Kegna has over 2 years of experience in the real estate sector. We have served 100+ happy clients and handled 200M+ birr transactions.'
     }
   ]
 
