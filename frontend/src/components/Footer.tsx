@@ -24,13 +24,13 @@ export default function Footer() {
             <div className="flex items-center space-x-3 mb-6">
               <img src="/assets/logo.jpg" alt="Beton Kegna Logo" className="h-12 w-auto" />
               <div>
-                <div className="text-xl font-bold bg-gradient-to-r from-brand-400 to-brand-600 bg-clip-text text-transparent">
+                <div className="text-xl font-bold bg-gradient-to-r from-brand-400 to-brand-600 bg-clip-text text-transparent font-hero">
                   {language === 'am' ? 'ቤቶን ከእኛ' : 'ቤቶን ከእኛ'}
                 </div>
-                <div className="text-sm text-gray-400">Beton Kegna</div>
+                <div className="text-sm text-gray-400 font-brand">Beton Kegna</div>
               </div>
             </div>
-            <p className="text-gray-300 text-sm leading-relaxed mb-6">
+            <p className="text-gray-300 text-sm leading-relaxed mb-6 font-body">
               {language === 'am' 
                 ? 'በኢትዮጵያ ውስጥ ሙያዊ የሪል እስቴት አማካሪ አገልግሎቶች። ከቤቶን ከኛ ጋር ፍጹም ንብረትዎን ያግኙ።'
                 : 'Professional real estate consultancy services in Ethiopia. Find your perfect property with Beton Kegna.'
@@ -68,37 +68,37 @@ export default function Footer() {
 
           {/* Quick Links */}
           <div>
-            <h3 className="text-lg font-semibold mb-6 text-brand-400">
+            <h3 className="text-lg font-semibold mb-6 text-brand-400 font-heading">
               {language === 'am' ? 'ፈጣን አገናኞች' : 'Quick Links'}
             </h3>
             <ul className="space-y-3">
               <li>
                 <button onClick={() => scrollToSection('home')} 
-                        className="text-gray-300 hover:text-brand-400 transition-colors duration-200 text-sm">
+                        className="text-gray-300 hover:text-brand-400 transition-colors duration-200 text-sm font-nav">
                   {language === 'am' ? 'ቤት' : 'Home'}
                 </button>
               </li>
               <li>
                 <button onClick={() => scrollToSection('about')} 
-                        className="text-gray-300 hover:text-brand-400 transition-colors duration-200 text-sm">
+                        className="text-gray-300 hover:text-brand-400 transition-colors duration-200 text-sm font-nav">
                   {language === 'am' ? 'ስለ እኛ' : 'About'}
                 </button>
               </li>
               <li>
                 <button onClick={() => scrollToSection('services')} 
-                        className="text-gray-300 hover:text-brand-400 transition-colors duration-200 text-sm">
+                        className="text-gray-300 hover:text-brand-400 transition-colors duration-200 text-sm font-nav">
                   {language === 'am' ? 'አገልግሎቶች' : 'Services'}
                 </button>
               </li>
               <li>
                 <button onClick={() => scrollToSection('properties')} 
-                        className="text-gray-300 hover:text-brand-400 transition-colors duration-200 text-sm">
+                        className="text-gray-300 hover:text-brand-400 transition-colors duration-200 text-sm font-nav">
                   {language === 'am' ? 'ንብረቶች' : 'Properties'}
                 </button>
               </li>
               <li>
                 <button onClick={() => scrollToSection('faq')} 
-                        className="text-gray-300 hover:text-brand-400 transition-colors duration-200 text-sm">
+                        className="text-gray-300 hover:text-brand-400 transition-colors duration-200 text-sm font-nav">
                   {language === 'am' ? 'ተደጋጋሚ ጥያቄዎች' : 'FAQ'}
                 </button>
               </li>
@@ -107,7 +107,7 @@ export default function Footer() {
 
           {/* Contact Info */}
           <div>
-            <h3 className="text-lg font-semibold mb-6 text-brand-400">
+            <h3 className="text-lg font-semibold mb-6 text-brand-400 font-heading">
               {language === 'am' ? 'ያግኙን' : 'Contact Us'}
             </h3>
             <div className="space-y-4">
@@ -118,10 +118,10 @@ export default function Footer() {
                   </svg>
                 </a>
                 <div>
-                  <a href="tel:+251930879595" className="text-gray-300 hover:text-brand-400 text-sm transition-colors duration-200">+251 930 879 595</a>
+                  <a href="tel:+251930879595" className="text-gray-300 hover:text-brand-400 text-sm transition-colors duration-200 font-text">+251 930 879 595</a>
                   <br />
-                  <a href="tel:+251711879595" className="text-gray-300 hover:text-brand-400 text-sm transition-colors duration-200">+251 711 879 595</a>
-                  <p className="text-xs text-gray-400 mt-1">
+                  <a href="tel:+251711879595" className="text-gray-300 hover:text-brand-400 text-sm transition-colors duration-200 font-text">+251 711 879 595</a>
+                  <p className="text-xs text-gray-400 mt-1 font-text">
                     {language === 'am' ? 'ከፋኑኤል ጋር ያነጋግሩ' : 'Contact Fanuel'}
                   </p>
                 </div>
@@ -134,8 +134,8 @@ export default function Footer() {
                   </svg>
                 </a>
                 <div>
-                  <a href="mailto:info@betonkegna.com" className="text-gray-300 hover:text-brand-400 text-sm transition-colors duration-200">info@betonkegna.com</a>
-                  <p className="text-xs text-gray-400 mt-1">
+                  <a href="mailto:info@betonkegna.com" className="text-gray-300 hover:text-brand-400 text-sm transition-colors duration-200 font-text">info@betonkegna.com</a>
+                  <p className="text-xs text-gray-400 mt-1 font-text">
                     {language === 'am' ? 'የንግድ መረጃ' : 'Business Inquiries'}
                   </p>
                 </div>
@@ -147,7 +147,7 @@ export default function Footer() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                 </svg>
                 <div>
-                  <p className="text-gray-300 text-sm">
+                  <p className="text-gray-300 text-sm font-text">
                     {language === 'am' ? 'አዲስ አበባ፣ ኢትዮጵያ' : 'Addis Ababa, Ethiopia'}
                   </p>
                 </div>
@@ -160,8 +160,8 @@ export default function Footer() {
       {/* Bottom Bar */}
       <div className="border-t border-gray-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <div className="text-sm text-gray-400 text-center">
-            © 2024 {language === 'am' ? 'ቤቶን ከእኛ' : 'Beton Kegna'}. 
+          <div className="text-sm text-gray-400 text-center font-text">
+            © 2026 {language === 'am' ? 'ቤቶን ከእኛ' : 'Beton Kegna'}. 
             {language === 'am' ? ' ሁሉም መብቶች የተጠበቁ ናቸው።' : ' All rights reserved.'}
           </div>
         </div>

@@ -30,10 +30,10 @@ export default function Contact() {
       <div className="container mx-auto px-4">
         {/* Header */}
         <div className="text-center mb-16 animate-fade-in-up">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-brand-600 to-brand-500 bg-clip-text text-transparent">
+          <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-brand-600 to-brand-500 bg-clip-text text-transparent font-display">
             Get In Touch
           </h2>
-          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto font-body">
             Ready to find your dream property? Contact us today and let&apos;s make it happen.
           </p>
         </div>
@@ -49,11 +49,11 @@ export default function Contact() {
                   </svg>
                 </div>
                 <div>
-                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white">Phone</h3>
-                  <p className="text-gray-600 dark:text-gray-300">Call us directly</p>
+                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white font-heading">Phone</h3>
+                  <p className="text-gray-600 dark:text-gray-300 font-text">Call us directly</p>
                 </div>
               </div>
-              <a href="tel:+251930879595" className="text-brand-600 hover:text-brand-700 font-medium text-lg">
+              <a href="tel:+251930879595" className="text-brand-600 hover:text-brand-700 font-medium text-lg font-text">
                 +251 930 879 595
               </a>
             </div>
@@ -66,11 +66,11 @@ export default function Contact() {
                   </svg>
                 </div>
                 <div>
-                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white">WhatsApp</h3>
-                  <p className="text-gray-600 dark:text-gray-300">Message us instantly</p>
+                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white font-heading">WhatsApp</h3>
+                  <p className="text-gray-600 dark:text-gray-300 font-text">Message us instantly</p>
                 </div>
               </div>
-              <a href="https://wa.me/251930879595" target="_blank" rel="noopener noreferrer" className="text-green-600 hover:text-green-700 font-medium text-lg">
+              <a href="https://wa.me/251930879595" target="_blank" rel="noopener noreferrer" className="text-green-600 hover:text-green-700 font-medium text-lg font-text">
                 Chat on WhatsApp
               </a>
             </div>
@@ -83,11 +83,11 @@ export default function Contact() {
                   </svg>
                 </div>
                 <div>
-                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white">Telegram</h3>
-                  <p className="text-gray-600 dark:text-gray-300">Connect with us</p>
+                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white font-heading">Telegram</h3>
+                  <p className="text-gray-600 dark:text-gray-300 font-text">Connect with us</p>
                 </div>
               </div>
-              <a href="https://t.me/fanuel_properties" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700 font-medium text-lg">
+              <a href="https://t.me/fanuel_properties" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700 font-medium text-lg font-text">
                 @fanuel_properties
               </a>
             </div>
@@ -96,7 +96,7 @@ export default function Contact() {
           {/* Contact Form */}
           <div className="animate-fade-in-up delay-300">
             <div className="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-lg">
-              <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Send us a message</h3>
+              <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6 font-heading">Send us a message</h3>
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid md:grid-cols-2 gap-6">
                   <div className="group">
@@ -143,9 +143,9 @@ export default function Contact() {
                     required
                   ></textarea>
                 </div>
-                <button
+                  <button
                   type="submit"
-                  className="w-full bg-gradient-to-r from-brand-500 to-brand-600 hover:from-brand-600 hover:to-brand-700 text-white px-8 py-4 rounded-lg font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
+                  className="w-full bg-gradient-to-r from-brand-500 to-brand-600 hover:from-brand-600 hover:to-brand-700 text-white px-8 py-4 rounded-lg font-semibold shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 font-button"
                 >
                   Send Message
                 </button>

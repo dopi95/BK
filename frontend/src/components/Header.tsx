@@ -51,10 +51,10 @@ export default function Header() {
               className="flex flex-col hover:scale-105 transition-transform duration-200 cursor-pointer"
               suppressHydrationWarning={true}
             >
-              <div className="text-xl font-bold bg-gradient-to-r from-brand-600 to-brand-500 bg-clip-text text-transparent">
+              <div className="text-xl font-bold bg-gradient-to-r from-brand-600 to-brand-500 bg-clip-text text-transparent font-hero">
                 {language === 'am' ? 'ቤቶን ከእኛ' : 'ቤቶን ከእኛ'}
               </div>
-              <div className="text-sm text-gray-600 dark:text-gray-400">
+              <div className="text-sm text-gray-600 dark:text-gray-400 font-brand">
                 {language === 'am' ? 'Beton Kegna' : 'Beton Kegna'}
               </div>
             </button>
@@ -62,16 +62,16 @@ export default function Header() {
 
           {/* Desktop Menu */}
           <div className="hidden lg:flex items-center space-x-8">
-            <button onClick={() => scrollToSection('home')} className="text-gray-700 dark:text-gray-300 hover:text-brand-600 dark:hover:text-brand-400 transition-all duration-200 hover:scale-105">
+            <button onClick={() => scrollToSection('home')} className="text-gray-700 dark:text-gray-300 hover:text-brand-600 dark:hover:text-brand-400 transition-all duration-200 hover:scale-105 font-nav">
               {t('home')}
             </button>
-            <button onClick={() => scrollToSection('about')} className="text-gray-700 dark:text-gray-300 hover:text-brand-600 dark:hover:text-brand-400 transition-all duration-200 hover:scale-105">
+            <button onClick={() => scrollToSection('about')} className="text-gray-700 dark:text-gray-300 hover:text-brand-600 dark:hover:text-brand-400 transition-all duration-200 hover:scale-105 font-nav">
               {t('about')}
             </button>
-            <button onClick={() => scrollToSection('services')} className="text-gray-700 dark:text-gray-300 hover:text-brand-600 dark:hover:text-brand-400 transition-all duration-200 hover:scale-105">
+            <button onClick={() => scrollToSection('services')} className="text-gray-700 dark:text-gray-300 hover:text-brand-600 dark:hover:text-brand-400 transition-all duration-200 hover:scale-105 font-nav">
               {t('services')}
             </button>
-            <button onClick={() => scrollToSection('properties')} className="text-gray-700 dark:text-gray-300 hover:text-brand-600 dark:hover:text-brand-400 transition-all duration-200 hover:scale-105">
+            <button onClick={() => scrollToSection('properties')} className="text-gray-700 dark:text-gray-300 hover:text-brand-600 dark:hover:text-brand-400 transition-all duration-200 hover:scale-105 font-nav">
               {t('properties')}
             </button>
           </div>
@@ -79,7 +79,7 @@ export default function Header() {
           {/* Controls */}
           <div className="flex items-center space-x-4">
             {/* CTA Button */}
-            <button onClick={() => window.location.href = '/contact'} className="hidden md:block bg-gradient-to-r from-brand-500 to-brand-600 hover:from-brand-600 hover:to-brand-700 text-white px-6 py-2.5 rounded-full font-medium shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-200" suppressHydrationWarning={true}>
+            <button onClick={() => window.location.href = '/contact'} className="hidden md:block bg-gradient-to-r from-brand-500 to-brand-600 hover:from-brand-600 hover:to-brand-700 text-white px-6 py-2.5 rounded-full font-medium shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-200 font-button" suppressHydrationWarning={true}>
               {t('getStarted')}
             </button>
 
@@ -97,7 +97,7 @@ export default function Header() {
                   height={12}
                   className="rounded-sm"
                 />
-                <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                <span className="text-sm font-medium text-gray-700 dark:text-gray-300 font-text">
                   {language === 'en' ? 'EN' : 'አማ'}
                 </span>
                 <svg className="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -162,22 +162,22 @@ export default function Header() {
         }`}>
           <div className="bg-white/90 dark:bg-gray-900/90 backdrop-blur-md rounded-lg p-4 shadow-lg animate-slide-down">
             <div className="flex flex-col space-y-4">
-              <button onClick={() => scrollToSection('home')} className="text-gray-700 dark:text-gray-300 hover:text-brand-600 dark:hover:text-brand-400 transition-colors duration-200 py-2 text-left">
+              <button onClick={() => scrollToSection('home')} className="text-gray-700 dark:text-gray-300 hover:text-brand-600 dark:hover:text-brand-400 transition-colors duration-200 py-2 text-left font-nav">
                 {t('home')}
               </button>
-              <button onClick={() => scrollToSection('about')} className="text-gray-700 dark:text-gray-300 hover:text-brand-600 dark:hover:text-brand-400 transition-colors duration-200 py-2 text-left">
+              <button onClick={() => scrollToSection('about')} className="text-gray-700 dark:text-gray-300 hover:text-brand-600 dark:hover:text-brand-400 transition-colors duration-200 py-2 text-left font-nav">
                 {t('about')}
               </button>
-              <button onClick={() => scrollToSection('services')} className="text-gray-700 dark:text-gray-300 hover:text-brand-600 dark:hover:text-brand-400 transition-colors duration-200 py-2 text-left">
+              <button onClick={() => scrollToSection('services')} className="text-gray-700 dark:text-gray-300 hover:text-brand-600 dark:hover:text-brand-400 transition-colors duration-200 py-2 text-left font-nav">
                 {t('services')}
               </button>
-              <button onClick={() => scrollToSection('properties')} className="text-gray-700 dark:text-gray-300 hover:text-brand-600 dark:hover:text-brand-400 transition-colors duration-200 py-2 text-left">
+              <button onClick={() => scrollToSection('properties')} className="text-gray-700 dark:text-gray-300 hover:text-brand-600 dark:hover:text-brand-400 transition-colors duration-200 py-2 text-left font-nav">
                 {t('properties')}
               </button>
               
               {/* Mobile Controls */}
               <div className="flex items-center justify-between pt-4 border-t border-gray-200 dark:border-gray-700">
-                <button onClick={() => window.location.href = '/contact'} className="bg-gradient-to-r from-brand-500 to-brand-600 hover:from-brand-600 hover:to-brand-700 text-white px-6 py-3 rounded-full font-medium shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-200 flex-1 mr-4" suppressHydrationWarning={true}>
+                <button onClick={() => window.location.href = '/contact'} className="bg-gradient-to-r from-brand-500 to-brand-600 hover:from-brand-600 hover:to-brand-700 text-white px-6 py-3 rounded-full font-medium shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-200 flex-1 mr-4 font-button" suppressHydrationWarning={true}>
                   {t('getStarted')}
                 </button>
                 

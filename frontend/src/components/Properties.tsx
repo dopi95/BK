@@ -183,10 +183,10 @@ export default function Properties() {
         <div className={`text-center mb-16 lg:mb-20 transition-all duration-1000 ${
           isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
         }`}>
-          <h2 className="text-4xl lg:text-5xl font-bold bg-gradient-to-r from-brand-600 via-brand-500 to-brand-700 bg-clip-text text-transparent mb-6">
+          <h2 className="text-4xl lg:text-5xl font-bold bg-gradient-to-r from-brand-600 via-brand-500 to-brand-700 bg-clip-text text-transparent mb-6 font-display">
             {t('featuredProperties')}
           </h2>
-          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed font-body">
             {t('propertiesDescription')}
           </p>
         </div>
@@ -236,10 +236,10 @@ export default function Properties() {
 
               {/* Property Details */}
               <div className="p-6">
-                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2 group-hover:text-brand-600 transition-colors duration-300">
+                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2 group-hover:text-brand-600 transition-colors duration-300 font-heading">
                   {property.name}
                 </h3>
-                <p className="text-gray-600 dark:text-gray-300 mb-4 line-clamp-2">
+                <p className="text-gray-600 dark:text-gray-300 mb-4 line-clamp-2 font-body">
                   {property.description}
                 </p>
                 
@@ -248,7 +248,7 @@ export default function Properties() {
                   <svg className="w-3 h-3 sm:w-4 sm:h-4 mr-2 flex-shrink-0 mt-0.5 sm:mt-0" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd"/>
                   </svg>
-                  <span className="text-xs sm:text-sm leading-tight">{property.location}</span>
+                  <span className="text-xs sm:text-sm leading-tight font-text">{property.location}</span>
                 </div>
 
                 {/* Property Info */}
@@ -272,7 +272,7 @@ export default function Properties() {
                 <div className="flex space-x-3">
                   <button
                     onClick={() => openDetailModal(property)}
-                    className="flex-1 bg-brand-500 hover:bg-brand-600 text-white py-2 px-4 rounded-lg font-semibold transition-all duration-300 hover:scale-105"
+                    className="flex-1 bg-brand-500 hover:bg-brand-600 text-white py-2 px-4 rounded-lg font-semibold transition-all duration-300 hover:scale-105 font-button"
                   >
                     {t('viewDetails')}
                   </button>
@@ -308,7 +308,7 @@ export default function Properties() {
                         document.body.appendChild(modal)
                       }
                     }}
-                    className="flex-1 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-800 dark:text-gray-200 py-2 px-4 rounded-lg font-semibold transition-all duration-300 hover:scale-105"
+                    className="flex-1 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-800 dark:text-gray-200 py-2 px-4 rounded-lg font-semibold transition-all duration-300 hover:scale-105 font-button"
                   >
                     {t('tourThreeD')}
                   </button>
@@ -323,7 +323,7 @@ export default function Properties() {
           {!showAll && properties.length > 3 && (
             <button
               onClick={() => setShowAll(true)}
-              className="bg-gradient-to-r from-brand-500 to-brand-600 hover:from-brand-600 hover:to-brand-700 text-white px-8 py-4 rounded-lg font-semibold shadow-lg transform hover:scale-105 transition-all duration-300"
+              className="bg-gradient-to-r from-brand-500 to-brand-600 hover:from-brand-600 hover:to-brand-700 text-white px-8 py-4 rounded-lg font-semibold shadow-lg transform hover:scale-105 transition-all duration-300 font-button"
             >
               {t('viewMoreProperties')}
             </button>
@@ -334,7 +334,7 @@ export default function Properties() {
                 setShowAll(false)
                 document.getElementById('properties')?.scrollIntoView({ behavior: 'smooth' })
               }}
-              className="bg-gray-500 hover:bg-gray-600 text-white px-8 py-4 rounded-lg font-semibold shadow-lg transform hover:scale-105 transition-all duration-300"
+              className="bg-gray-500 hover:bg-gray-600 text-white px-8 py-4 rounded-lg font-semibold shadow-lg transform hover:scale-105 transition-all duration-300 font-button"
             >
               {t('viewLessProperties')}
             </button>

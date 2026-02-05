@@ -50,10 +50,10 @@ export default function FAQ() {
         <div className={`text-center mb-16 transition-all duration-1000 ${
           isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
         }`}>
-          <h2 className="text-4xl lg:text-5xl font-bold bg-gradient-to-r from-brand-600 via-brand-500 to-brand-700 bg-clip-text text-transparent mb-6">
+          <h2 className="text-4xl lg:text-5xl font-bold bg-gradient-to-r from-brand-600 via-brand-500 to-brand-700 bg-clip-text text-transparent mb-6 font-display">
             {language === 'am' ? 'ተደጋጋሚ ጥያቄዎች' : 'Frequently Asked Questions'}
           </h2>
-          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto font-body">
             {language === 'am' ? 'ስለ አገልግሎቶቻችን እና ፕሮጀክቶቻችን የሚጠየቁ ተደጋጋሚ ጥያቄዎች' : 'Common questions about our services and projects'}
           </p>
         </div>
@@ -72,7 +72,7 @@ export default function FAQ() {
                 onClick={() => setOpenIndex(openIndex === index ? null : index)}
                 className="w-full px-6 py-4 text-left flex justify-between items-center hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200"
               >
-                <span className="text-lg font-semibold text-gray-900 dark:text-white pr-4">
+                <span className="text-lg font-semibold text-gray-900 dark:text-white pr-4 font-heading">
                   {faq.question}
                 </span>
                 <svg
@@ -92,7 +92,7 @@ export default function FAQ() {
                 }`}
               >
                 <div className="px-6 pb-4">
-                  <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
+                  <p className="text-gray-600 dark:text-gray-300 leading-relaxed font-body">
                     {faq.answer}
                   </p>
                 </div>

@@ -9,6 +9,33 @@ const config: Config = {
   darkMode: 'class',
   theme: {
     extend: {
+      fontFamily: {
+        // Hero & Brand - Modern, Bold, Luxury
+        'hero': ['Playfair Display', 'Georgia', 'serif'],
+        'brand': ['Montserrat', 'system-ui', 'sans-serif'],
+        
+        // Headings - Professional, Clean
+        'heading': ['Inter', 'system-ui', 'sans-serif'],
+        'display': ['Poppins', 'system-ui', 'sans-serif'],
+        
+        // Body Text - Readable, Modern
+        'body': ['Source Sans Pro', 'system-ui', 'sans-serif'],
+        'text': ['Open Sans', 'system-ui', 'sans-serif'],
+        
+        // Navigation - Clean, Professional
+        'nav': ['Roboto', 'system-ui', 'sans-serif'],
+        
+        // Buttons & CTAs - Strong, Modern
+        'button': ['Nunito Sans', 'system-ui', 'sans-serif'],
+        
+        // Stats & Numbers - Clean, Technical
+        'stats': ['JetBrains Mono', 'Consolas', 'monospace'],
+        'mono': ['Fira Code', 'Consolas', 'monospace'],
+        
+        // Luxury/Premium sections
+        'luxury': ['Cormorant Garamond', 'Georgia', 'serif'],
+        'elegant': ['Crimson Text', 'Georgia', 'serif'],
+      },
       colors: {
         primary: {
           50: '#f8fafc',

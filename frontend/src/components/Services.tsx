@@ -76,10 +76,10 @@ export default function Services() {
         <div className={`text-center mb-16 lg:mb-20 transition-all duration-1000 ${
           isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
         }`}>
-          <h2 className="text-4xl lg:text-5xl font-bold bg-gradient-to-r from-brand-600 via-brand-500 to-brand-700 bg-clip-text text-transparent mb-6">
+          <h2 className="text-4xl lg:text-5xl font-bold bg-gradient-to-r from-brand-600 via-brand-500 to-brand-700 bg-clip-text text-transparent mb-6 font-display">
             {t('ourServices')}
           </h2>
-          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed font-body">
             {t('servicesDescription')}
           </p>
         </div>
@@ -108,12 +108,12 @@ export default function Services() {
                       <div className="text-5xl group-hover:scale-110 transition-transform duration-500 filter drop-shadow-lg">
                         {service.icon}
                       </div>
-                      <h3 className="text-2xl font-bold text-gray-900 dark:text-white group-hover:text-brand-700 dark:group-hover:text-brand-400 transition-colors duration-300">
+                      <h3 className="text-2xl font-bold text-gray-900 dark:text-white group-hover:text-brand-700 dark:group-hover:text-brand-400 transition-colors duration-300 font-heading">
                         {t(service.titleKey)}
                       </h3>
                     </div>
                     <div className="relative z-10">
-                      <p className="text-gray-600 dark:text-gray-300 leading-relaxed text-lg group-hover:text-gray-700 dark:group-hover:text-gray-200 transition-colors duration-300">
+                      <p className="text-gray-600 dark:text-gray-300 leading-relaxed text-lg group-hover:text-gray-700 dark:group-hover:text-gray-200 transition-colors duration-300 font-body">
                         {t(service.descKey)}
                       </p>
                     </div>
@@ -176,13 +176,13 @@ export default function Services() {
                 <div className="text-5xl lg:text-6xl group-hover:scale-110 transition-transform duration-500 filter drop-shadow-lg">
                   {service.icon}
                 </div>
-                <h3 className="text-2xl lg:text-3xl font-bold text-gray-900 dark:text-white group-hover:text-brand-700 dark:group-hover:text-brand-400 transition-colors duration-300">
+                <h3 className="text-2xl lg:text-3xl font-bold text-gray-900 dark:text-white group-hover:text-brand-700 dark:group-hover:text-brand-400 transition-colors duration-300 font-heading">
                   {t(service.titleKey)}
                 </h3>
               </div>
               {/* Description */}
               <div className="relative z-10">
-                <p className="text-gray-600 dark:text-gray-300 leading-relaxed text-lg group-hover:text-gray-700 dark:group-hover:text-gray-200 transition-colors duration-300">
+                <p className="text-gray-600 dark:text-gray-300 leading-relaxed text-lg group-hover:text-gray-700 dark:group-hover:text-gray-200 transition-colors duration-300 font-body">
                   {t(service.descKey)}
                 </p>
               </div>

@@ -74,10 +74,10 @@ export default function About() {
         <div className={`text-center mb-16 lg:mb-20 transition-all duration-1000 ${
           isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
         }`}>
-          <h2 className="text-4xl lg:text-5xl font-bold bg-gradient-to-r from-brand-600 via-brand-500 to-brand-700 bg-clip-text text-transparent mb-6">
+          <h2 className="text-4xl lg:text-5xl font-bold bg-gradient-to-r from-brand-600 via-brand-500 to-brand-700 bg-clip-text text-transparent mb-6 font-display">
             {t('aboutUs')}
           </h2>
-          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed font-body">
             {t('aboutDescription')}
           </p>
         </div>
@@ -103,13 +103,13 @@ export default function About() {
               
               {/* Consultant Info */}
               <div className="text-center lg:text-left mt-6">
-                <h3 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
+                <h3 className="text-3xl font-bold text-gray-900 dark:text-white mb-2 font-heading">
                   Fanuel Kemeto
                 </h3>
-                <p className="text-xl text-brand-600 dark:text-brand-400 font-semibold mb-4">
+                <p className="text-xl text-brand-600 dark:text-brand-400 font-semibold mb-4 font-button">
                   Sales
                 </p>
-                <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
+                <p className="text-gray-600 dark:text-gray-300 leading-relaxed font-body">
                   {t('consultantBio')}
                 </p>
               </div>
@@ -139,11 +139,11 @@ export default function About() {
                 <div className="w-12 h-12 bg-brand-500 rounded-full flex items-center justify-center text-white text-2xl mr-4">
                   🎯
                 </div>
-                <h3 className="text-2xl lg:text-3xl font-bold text-gray-900 dark:text-white">
+                <h3 className="text-2xl lg:text-3xl font-bold text-gray-900 dark:text-white font-heading">
                   {t('ourMission')}
                 </h3>
               </div>
-              <p className="text-gray-600 dark:text-gray-300 leading-relaxed text-lg">
+              <p className="text-gray-600 dark:text-gray-300 leading-relaxed text-lg font-body">
                 {t('missionText')}
               </p>
             </div>
@@ -154,11 +154,11 @@ export default function About() {
                 <div className="w-12 h-12 bg-brand-500 rounded-full flex items-center justify-center text-white text-2xl mr-4">
                   👁️
                 </div>
-                <h3 className="text-2xl lg:text-3xl font-bold text-gray-900 dark:text-white">
+                <h3 className="text-2xl lg:text-3xl font-bold text-gray-900 dark:text-white font-heading">
                   {t('ourVision')}
                 </h3>
               </div>
-              <p className="text-gray-600 dark:text-gray-300 leading-relaxed text-lg">
+              <p className="text-gray-600 dark:text-gray-300 leading-relaxed text-lg font-body">
                 {t('visionText')}
               </p>
             </div>
@@ -169,24 +169,24 @@ export default function About() {
                 <div className="w-12 h-12 bg-brand-500 rounded-full flex items-center justify-center text-white text-2xl mr-4">
                   ⭐
                 </div>
-                <h3 className="text-2xl lg:text-3xl font-bold text-gray-900 dark:text-white">
+                <h3 className="text-2xl lg:text-3xl font-bold text-gray-900 dark:text-white font-heading">
                   {t('whyChooseUs')}
                 </h3>
               </div>
               <ul className="space-y-3">
-                <li className="flex items-center text-gray-600 dark:text-gray-300">
+                <li className="flex items-center text-gray-600 dark:text-gray-300 font-text">
                   <span className="w-2 h-2 bg-brand-500 rounded-full mr-3"></span>
                   {t('expertiseExperience')}
                 </li>
-                <li className="flex items-center text-gray-600 dark:text-gray-300">
+                <li className="flex items-center text-gray-600 dark:text-gray-300 font-text">
                   <span className="w-2 h-2 bg-brand-500 rounded-full mr-3"></span>
                   {t('personalizedService')}
                 </li>
-                <li className="flex items-center text-gray-600 dark:text-gray-300">
+                <li className="flex items-center text-gray-600 dark:text-gray-300 font-text">
                   <span className="w-2 h-2 bg-brand-500 rounded-full mr-3"></span>
                   {t('marketKnowledge')}
                 </li>
-                <li className="flex items-center text-gray-600 dark:text-gray-300">
+                <li className="flex items-center text-gray-600 dark:text-gray-300 font-text">
                   <span className="w-2 h-2 bg-brand-500 rounded-full mr-3"></span>
                   {t('trustedPartner')}
                 </li>

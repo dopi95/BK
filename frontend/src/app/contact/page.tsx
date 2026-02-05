@@ -60,10 +60,10 @@ export default function ContactPage() {
       <div className="container mx-auto px-4 py-8 sm:py-16 pb-40">
         {/* Header */}
         <div className="text-center mb-12 sm:mb-16 animate-fade-in-up">
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-4 sm:mb-6 bg-gradient-to-r from-brand-600 to-brand-500 bg-clip-text text-transparent">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-4 sm:mb-6 bg-gradient-to-r from-brand-600 to-brand-500 bg-clip-text text-transparent font-display">
             {language === 'am' ? 'ያግኙን' : 'Contact Us'}
           </h1>
-          <p className="text-lg sm:text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto px-4">
+          <p className="text-lg sm:text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto px-4 font-body">
             {language === 'am' 
               ? 'የህልም ንብረትዎን ለማግኘት ዝግጁ ነዎት? ዛሬ ያግኙን እና አብረን እንስራ።'
               : 'Ready to find your dream property? Get in touch with us today and let\'s make it happen together.'}
@@ -73,7 +73,7 @@ export default function ContactPage() {
         {/* Contact Form */}
         <div className="max-w-4xl mx-auto animate-fade-in-up mb-16 sm:mb-20">
           <div className="bg-white dark:bg-gray-800 p-6 sm:p-8 md:p-12 rounded-2xl shadow-xl">
-            <h2 className="text-2xl sm:text-3xl font-bold text-center mb-6 sm:mb-8 text-gray-900 dark:text-white">
+            <h2 className="text-2xl sm:text-3xl font-bold text-center mb-6 sm:mb-8 text-gray-900 dark:text-white font-heading">
               {language === 'am' ? 'መልእክት ይላኩልን' : 'Send us a message'}
             </h2>
             <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
@@ -116,7 +116,7 @@ export default function ContactPage() {
               ></textarea>
               <button
                 type="submit"
-                className="w-full bg-gradient-to-r from-brand-500 to-brand-600 hover:from-brand-600 hover:to-brand-700 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-semibold text-base sm:text-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
+                className="w-full bg-gradient-to-r from-brand-500 to-brand-600 hover:from-brand-600 hover:to-brand-700 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-semibold text-base sm:text-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 font-button"
               >
                 {language === 'am' ? 'መልእክት ላክ' : 'Send Message'}
               </button>
@@ -126,7 +126,7 @@ export default function ContactPage() {
 
         {/* Follow Us Section */}
         <div className="mb-16 sm:mb-20 animate-fade-in-up delay-200">
-          <h2 className="text-2xl sm:text-3xl font-bold text-center mb-8 sm:mb-12 text-gray-900 dark:text-white">
+          <h2 className="text-2xl sm:text-3xl font-bold text-center mb-8 sm:mb-12 text-gray-900 dark:text-white font-heading">
             {language === 'am' ? 'እንከተሉን' : 'Follow Us'}
           </h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 max-w-4xl mx-auto">
@@ -170,7 +170,7 @@ export default function ContactPage() {
 
         {/* Contact Us Section */}
         <div className="mb-32 sm:mb-40 animate-fade-in-up delay-300">
-          <h2 className="text-2xl sm:text-3xl font-bold text-center mb-8 sm:mb-12 text-gray-900 dark:text-white">
+          <h2 className="text-2xl sm:text-3xl font-bold text-center mb-8 sm:mb-12 text-gray-900 dark:text-white font-heading">
             {language === 'am' ? 'ያግኙን' : 'Contact Us'}
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 max-w-4xl mx-auto">
