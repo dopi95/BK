@@ -37,7 +37,7 @@ export default function About() {
     },
     {
       name: 'TikTok',
-      url: 'https://tiktok.com/@fanuelakoyaproperties',
+      url: 'https://tiktok.com/@fanuel_akoya',
       color: 'hover:bg-black',
       icon: (
         <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
@@ -57,7 +57,7 @@ export default function About() {
     },
     {
       name: 'Facebook',
-      url: '#',
+      url: 'https://www.facebook.com/share/1MjNBeMYRb/',
       color: 'hover:bg-blue-600',
       icon: (
         <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
