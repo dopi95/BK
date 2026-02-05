@@ -13,18 +13,26 @@ export default function ContactPage() {
   })
   const [showToast, setShowToast] = useState(false)
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    console.log('Form submitted:', formData)
     
-    // Show success toast
-    setShowToast(true)
-    
-    // Reset form
-    setFormData({ name: '', email: '', phone: '', message: '' })
-    
-    // Hide toast after 5 seconds
-    setTimeout(() => setShowToast(false), 5000)
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData)
+      })
+
+      if (response.ok) {
+        setShowToast(true)
+        setFormData({ name: '', email: '', phone: '', message: '' })
+        setTimeout(() => setShowToast(false), 5000)
+      }
+    } catch (error) {
+      console.error('Error sending message:', error)
+    }
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
