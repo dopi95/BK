@@ -107,7 +107,7 @@ export default function About() {
                   Fanuel Kemeto
                 </h3>
                 <p className="text-xl text-brand-600 dark:text-brand-400 font-semibold mb-4 font-button">
-                  Sales
+                  Sales Manager
                 </p>
                 <p className="text-gray-600 dark:text-gray-300 leading-relaxed font-body">
                   {t('consultantBio')}
