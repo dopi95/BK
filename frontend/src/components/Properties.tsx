@@ -29,6 +29,8 @@ export default function Properties() {
   const [showTourModal, setShowTourModal] = useState(false)
   const [currentImageIndex, setCurrentImageIndex] = useState<{[key: number]: number}>({})
   const [detailImageIndex, setDetailImageIndex] = useState(0)
+  const [activeFilter, setActiveFilter] = useState('all')
+  const [isFilterOpen, setIsFilterOpen] = useState(false)
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -163,7 +165,24 @@ export default function Properties() {
     }
   ]
 
-  const displayedProperties = showAll ? properties : properties.slice(0, 3)
+  // Filter properties based on active filter
+  const filteredProperties = properties.filter(property => {
+    if (activeFilter === 'all') return true
+    if (activeFilter === 'apartments') return property.type.toLowerCase().includes('apartment') || property.type.toLowerCase().includes('አፓርትመንት')
+    if (activeFilter === 'commercial') return property.type.toLowerCase().includes('commercial') || property.type.toLowerCase().includes('የንግድ')
+    if (activeFilter === 'villa') return property.type.toLowerCase().includes('villa') || property.type.toLowerCase().includes('ቪላ')
+    return true
+  })
+
+  const displayedProperties = showAll ? filteredProperties : filteredProperties.slice(0, 3)
+
+  // Filter options
+  const filterOptions = [
+    { id: 'all', label: language === 'am' ? 'ሁሉም' : 'All Properties', icon: '🏢' },
+    { id: 'apartments', label: language === 'am' ? 'አፓርትመንቶች' : 'Apartments', icon: '🏠' },
+    { id: 'commercial', label: language === 'am' ? 'የንግድ ህንፃዎች' : 'Commercial', icon: '🏬' },
+    { id: 'villa', label: language === 'am' ? 'ቪላዎች' : 'Villas', icon: '🏡' }
+  ]
 
   const openDetailModal = (property: Property) => {
     setSelectedProperty(property)
@@ -180,7 +199,7 @@ export default function Properties() {
     <section id="properties" className="py-20 lg:py-32 bg-gray-50 dark:bg-gray-800 relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
-        <div className={`text-center mb-16 lg:mb-20 transition-all duration-1000 ${
+        <div className={`text-center mb-12 lg:mb-16 transition-all duration-1000 ${
           isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
         }`}>
           <h2 className="text-4xl lg:text-5xl font-bold bg-gradient-to-r from-brand-600 via-brand-500 to-brand-700 bg-clip-text text-transparent mb-6 font-display">
@@ -189,6 +208,75 @@ export default function Properties() {
           <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed font-body">
             {t('propertiesDescription')}
           </p>
+        </div>
+
+        {/* Property Filters */}
+        <div className={`mb-12 transition-all duration-1000 delay-300 ${
+          isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+        }`}>
+          {/* Mobile Filter Toggle */}
+          <div className="md:hidden mb-4">
+            <button
+              onClick={() => setIsFilterOpen(!isFilterOpen)}
+              className="w-full flex items-center justify-between bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl px-4 py-3 shadow-sm hover:shadow-md transition-all duration-300"
+            >
+              <span className="flex items-center space-x-2">
+                <span className="text-lg">{filterOptions.find(f => f.id === activeFilter)?.icon}</span>
+                <span className="font-semibold text-gray-900 dark:text-white">
+                  {filterOptions.find(f => f.id === activeFilter)?.label}
+                </span>
+              </span>
+              <svg 
+                className={`w-5 h-5 text-gray-500 transition-transform duration-300 ${
+                  isFilterOpen ? 'rotate-180' : ''
+                }`} 
+                fill="none" 
+                stroke="currentColor" 
+                viewBox="0 0 24 24"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+          </div>
+
+          {/* Filter Options */}
+          <div className={`${
+            isFilterOpen ? 'block' : 'hidden'
+          } md:block`}>
+            <div className="flex flex-col md:flex-row md:justify-center space-y-2 md:space-y-0 md:space-x-2 lg:space-x-4">
+              {filterOptions.map((filter) => (
+                <button
+                  key={filter.id}
+                  onClick={() => {
+                    setActiveFilter(filter.id)
+                    setIsFilterOpen(false)
+                    setShowAll(false)
+                  }}
+                  className={`group relative flex items-center justify-center md:justify-start space-x-2 px-4 md:px-6 py-3 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 ${
+                    activeFilter === filter.id
+                      ? 'bg-gradient-to-r from-brand-500 to-brand-600 text-white shadow-lg shadow-brand-500/25'
+                      : 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-700 hover:border-brand-300 dark:hover:border-brand-600 hover:bg-brand-50 dark:hover:bg-brand-900/20'
+                  }`}
+                >
+                  <span className="text-lg">{filter.icon}</span>
+                  <span className="text-sm md:text-base">{filter.label}</span>
+                  {activeFilter === filter.id && (
+                    <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-brand-400/20 to-brand-600/20 animate-pulse"></div>
+                  )}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Results Count */}
+          <div className="text-center mt-6">
+            <p className="text-sm text-gray-600 dark:text-gray-400">
+              {language === 'am' 
+                ? `${filteredProperties.length} ንብረቶች ተገኝተዋል`
+                : `${filteredProperties.length} properties found`
+              }
+            </p>
+          </div>
         </div>
 
         {/* Properties Grid */}
@@ -320,7 +408,7 @@ export default function Properties() {
 
         {/* Show More/Less Button */}
         <div className="text-center mt-12">
-          {!showAll && properties.length > 3 && (
+          {!showAll && filteredProperties.length > 3 && (
             <button
               onClick={() => setShowAll(true)}
               className="bg-gradient-to-r from-brand-500 to-brand-600 hover:from-brand-600 hover:to-brand-700 text-white px-8 py-4 rounded-lg font-semibold shadow-lg transform hover:scale-105 transition-all duration-300 font-button"
@@ -340,6 +428,28 @@ export default function Properties() {
             </button>
           )}
         </div>
+
+        {/* No Results Message */}
+        {filteredProperties.length === 0 && (
+          <div className="text-center py-16">
+            <div className="text-6xl mb-4">🏠</div>
+            <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
+              {language === 'am' ? 'ምንም ንብረት አልተገኘም' : 'No Properties Found'}
+            </h3>
+            <p className="text-gray-600 dark:text-gray-400 mb-6">
+              {language === 'am' 
+                ? 'የተመረጠውን ማጣሪያ ለመለወጥ ይሞክሩ'
+                : 'Try changing the selected filter to see more properties'
+              }
+            </p>
+            <button
+              onClick={() => setActiveFilter('all')}
+              className="bg-brand-500 hover:bg-brand-600 text-white px-6 py-3 rounded-lg font-semibold transition-all duration-300"
+            >
+              {language === 'am' ? 'ሁሉንም አሳይ' : 'Show All Properties'}
+            </button>
+          </div>
+        )}
       </div>
 
       {/* Detail Modal */}
