@@ -30,7 +30,6 @@ export default function Properties() {
   const [currentImageIndex, setCurrentImageIndex] = useState<{[key: number]: number}>({})
   const [detailImageIndex, setDetailImageIndex] = useState(0)
   const [activeFilter, setActiveFilter] = useState('all')
-  const [isFilterOpen, setIsFilterOpen] = useState(false)
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -214,58 +213,28 @@ export default function Properties() {
         <div className={`mb-12 transition-all duration-1000 delay-300 ${
           isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
         }`}>
-          {/* Mobile Filter Toggle */}
-          <div className="md:hidden mb-4">
-            <button
-              onClick={() => setIsFilterOpen(!isFilterOpen)}
-              className="w-full flex items-center justify-between bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl px-4 py-3 shadow-sm hover:shadow-md transition-all duration-300"
-            >
-              <span className="flex items-center space-x-2">
-                <span className="text-lg">{filterOptions.find(f => f.id === activeFilter)?.icon}</span>
-                <span className="font-semibold text-gray-900 dark:text-white">
-                  {filterOptions.find(f => f.id === activeFilter)?.label}
-                </span>
-              </span>
-              <svg 
-                className={`w-5 h-5 text-gray-500 transition-transform duration-300 ${
-                  isFilterOpen ? 'rotate-180' : ''
-                }`} 
-                fill="none" 
-                stroke="currentColor" 
-                viewBox="0 0 24 24"
+          {/* Filter Options - All Visible */}
+          <div className="grid grid-cols-2 md:flex md:justify-center gap-1.5 md:gap-4 px-1 md:px-0">
+            {filterOptions.map((filter) => (
+              <button
+                key={filter.id}
+                onClick={() => {
+                  setActiveFilter(filter.id)
+                  setShowAll(false)
+                }}
+                className={`group relative flex items-center justify-center space-x-1 md:space-x-2 px-1.5 md:px-4 py-2 md:py-3 rounded-lg md:rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 text-center ${
+                  activeFilter === filter.id
+                    ? 'bg-gradient-to-r from-brand-500 to-brand-600 text-white shadow-lg shadow-brand-500/25'
+                    : 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-700 hover:border-brand-300 dark:hover:border-brand-600 hover:bg-brand-50 dark:hover:bg-brand-900/20'
+                }`}
               >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-              </svg>
-            </button>
-          </div>
-
-          {/* Filter Options */}
-          <div className={`${
-            isFilterOpen ? 'block' : 'hidden'
-          } md:block`}>
-            <div className="flex flex-col md:flex-row md:justify-center space-y-2 md:space-y-0 md:space-x-2 lg:space-x-4">
-              {filterOptions.map((filter) => (
-                <button
-                  key={filter.id}
-                  onClick={() => {
-                    setActiveFilter(filter.id)
-                    setIsFilterOpen(false)
-                    setShowAll(false)
-                  }}
-                  className={`group relative flex items-center justify-center md:justify-start space-x-2 px-4 md:px-6 py-3 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 ${
-                    activeFilter === filter.id
-                      ? 'bg-gradient-to-r from-brand-500 to-brand-600 text-white shadow-lg shadow-brand-500/25'
-                      : 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-700 hover:border-brand-300 dark:hover:border-brand-600 hover:bg-brand-50 dark:hover:bg-brand-900/20'
-                  }`}
-                >
-                  <span className="text-lg">{filter.icon}</span>
-                  <span className="text-sm md:text-base">{filter.label}</span>
-                  {activeFilter === filter.id && (
-                    <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-brand-400/20 to-brand-600/20 animate-pulse"></div>
-                  )}
-                </button>
-              ))}
-            </div>
+                <span className="text-sm md:text-lg">{filter.icon}</span>
+                <span className="text-xs md:text-base leading-tight whitespace-nowrap">{filter.label}</span>
+                {activeFilter === filter.id && (
+                  <div className="absolute inset-0 rounded-lg md:rounded-xl bg-gradient-to-r from-brand-400/20 to-brand-600/20 animate-pulse"></div>
+                )}
+              </button>
+            ))}
           </div>
 
           {/* Results Count */}
@@ -432,21 +401,21 @@ export default function Properties() {
         {/* No Results Message */}
         {filteredProperties.length === 0 && (
           <div className="text-center py-16">
-            <div className="text-6xl mb-4">🏠</div>
+            <div className="text-6xl mb-4">🚀</div>
             <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
-              {language === 'am' ? 'ምንም ንብረት አልተገኘም' : 'No Properties Found'}
+              {language === 'am' ? 'በቅርቡ ይመጣል!' : 'Coming Soon!'}
             </h3>
             <p className="text-gray-600 dark:text-gray-400 mb-6">
               {language === 'am' 
-                ? 'የተመረጠውን ማጣሪያ ለመለወጥ ይሞክሩ'
-                : 'Try changing the selected filter to see more properties'
+                ? 'በዚህ ምድብ ውስጥ አዳዲስ ንብረቶች በቅርቡ ይጨመራሉ። እባክዎ ከጊዜ በኋላ ይመለከቱ።'
+                : 'Exciting new properties in this category are coming soon. Stay tuned for amazing opportunities!'
               }
             </p>
             <button
               onClick={() => setActiveFilter('all')}
               className="bg-brand-500 hover:bg-brand-600 text-white px-6 py-3 rounded-lg font-semibold transition-all duration-300"
             >
-              {language === 'am' ? 'ሁሉንም አሳይ' : 'Show All Properties'}
+              {language === 'am' ? 'ሌሎች ንብረቶችን ይመልከቱ' : 'Explore Other Properties'}
             </button>
           </div>
         )}
