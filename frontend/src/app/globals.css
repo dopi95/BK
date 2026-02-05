@@ -38,6 +38,33 @@ body {
     rgb(var(--background-start-rgb));
 }
 
+/* Responsive Typography for Hero Text */
+@layer utilities {
+  .hero-tagline {
+    font-size: clamp(0.875rem, 2.5vw, 3rem);
+    line-height: clamp(1.25, 1.6, 1.8);
+    letter-spacing: clamp(0.025em, 0.05em, 0.1em);
+  }
+  
+  @media (min-width: 1024px) {
+    .hero-tagline {
+      font-size: clamp(1.25rem, 2.2vw, 2.5rem);
+    }
+  }
+  
+  @media (min-width: 1280px) {
+    .hero-tagline {
+      font-size: clamp(1.5rem, 2vw, 2.25rem);
+    }
+  }
+  
+  @media (min-width: 1536px) {
+    .hero-tagline {
+      font-size: clamp(1.875rem, 1.8vw, 3rem);
+    }
+  }
+}
+
 /* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 8px;

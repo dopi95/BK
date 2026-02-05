@@ -57,7 +57,7 @@ export default function Hero() {
           <div className="text-base sm:text-lg md:text-xl text-brand-400 font-bold mt-2 drop-shadow-lg px-1 font-elegant italic tracking-wide">
             &quot; የቤትዎን ቁልፍ በጊዜ ይረከቡ! &quot;
           </div>
-          <p className="text-sm sm:text-base md:text-xl lg:text-2xl text-white mt-2 sm:mt-3 md:mt-8 lg:mt-12 mb-6 sm:mb-8 md:mb-16 lg:mb-20 max-w-4xl mx-auto animate-fade-in-up delay-300 drop-shadow-lg px-2 leading-relaxed font-body">
+          <p className="hero-tagline text-white mt-2 sm:mt-3 md:mt-6 lg:mt-8 xl:mt-10 mb-6 sm:mb-8 md:mb-12 lg:mb-16 xl:mb-20 max-w-xs sm:max-w-md md:max-w-2xl lg:max-w-4xl xl:max-w-5xl 2xl:max-w-6xl mx-auto animate-fade-in-up delay-300 drop-shadow-2xl px-2 sm:px-4 md:px-6 lg:px-8 font-body text-center">
             {t('tagline')}
           </p>
           
