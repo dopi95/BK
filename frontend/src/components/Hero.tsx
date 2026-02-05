@@ -11,11 +11,11 @@ export default function Hero() {
   const [currentSlide, setCurrentSlide] = useState(0)
 
   const backgroundImages = [
-    'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80',
-    'https://images.unsplash.com/photo-1570129477492-45c003edd2be?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80',
-    'https://images.unsplash.com/photo-1582407947304-fd86f028f716?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80',
-    'https://images.unsplash.com/photo-1449824913935-59a10b8d2000?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80',
-    'https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80'
+    '/images/sl1.jpg',
+    '/images/sl2.jpg',
+    '/images/sl3.jpg',
+    '/images/sl4.jpg',
+    '/images/sl5.jpg'
   ]
 
   useEffect(() => {
