@@ -139,8 +139,8 @@ export default function Hero() {
               </div>
             </div>
 
-            {/* Slider Dots - Right Corner on Desktop */}
-            <div className="hidden lg:block absolute right-8 top-1/2 transform -translate-y-1/2 z-30">
+            {/* Slider Dots - Right Corner on Desktop - HIDDEN */}
+            <div className="hidden">
               <div className="flex flex-col space-y-3">
                 {backgroundImages.map((_, index) => (
                   <button
