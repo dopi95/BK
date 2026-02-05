@@ -1,10 +1,10 @@
 # <img src="frontend/public/assets/logo.jpg" alt="Beton Kegna Logo" width="40" height="40"> Beton Kegna - Real Estate Website
 
-A modern, responsive real estate website for Beton Kegna, showcasing premium properties and services in Addis Ababa, Ethiopia.
+A modern, responsive website for Beton Kegna real estate sales, showcasing all types of homes and premium properties in Addis Ababa, Ethiopia.
 
 ## 🏢 About
 
-Beton Kegna is a leading real estate company founded by Fanuel Kemeto, specializing in Akoya Properties projects, offering luxury apartments and commercial spaces in prime locations across Addis Ababa.
+Beton Kegna is a leading real estate sales company founded by Fanuel Kemeto, specializing in selling all types of homes including luxury apartments, villas, commercial properties, and residential homes in prime locations across Addis Ababa.
 
 ## ✨ Features
 
@@ -44,4 +44,4 @@ Beton Kegna is a leading real estate company founded by Fanuel Kemeto, specializ
 
 ---
 
-**ቤቶን ከእኛ** - Your trusted real estate partner in Ethiopia 🇪🇹
+**ቤቶን ከእኛ** - Your trusted real estate sales partner in Ethiopia 🇪🇹
