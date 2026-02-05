@@ -51,7 +51,7 @@ export default function Hero() {
       <div className="absolute top-4 sm:top-6 md:top-8 left-2 right-2 sm:left-4 sm:right-4 md:left-0 md:right-0 flex justify-center z-20">
         <div className="text-center animate-brand-appear px-2" style={{marginTop: '48px'}}>
           <div className="text-4xl sm:text-4xl md:text-5xl lg:text-6xl font-bold drop-shadow-2xl">
-            <div className="leading-tight text-transparent bg-gradient-to-r from-brand-400 via-brand-500 to-brand-600 bg-clip-text">ቤቶን ከኛ</div>
+            <div className="leading-tight text-transparent bg-gradient-to-r from-brand-400 via-brand-500 to-brand-600 bg-clip-text">ቤቶን ከእኛ</div>
             <div className="text-2xl sm:text-2xl md:text-3xl lg:text-4xl mt-1 text-transparent bg-gradient-to-r from-brand-500 to-brand-600 bg-clip-text leading-tight">Beton Kegna</div>
           </div>
           <div className="text-xs sm:text-sm md:text-base text-gray-200 mt-1 drop-shadow-lg px-1 leading-relaxed">
@@ -111,30 +111,30 @@ export default function Hero() {
             {/* Animated Stats */}
             <div className="grid grid-cols-3 gap-2 sm:gap-4 md:gap-6 lg:gap-8 px-2">
               <div className="group cursor-pointer rounded-xl p-2 sm:p-3 md:p-4 lg:p-6 hover:bg-white/5 transition-all duration-300">
-                <div className="text-base sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold text-transparent bg-gradient-to-r from-brand-400 to-brand-600 bg-clip-text mb-1 animate-count-up group-hover:scale-110 transition-transform duration-300">500+</div>
+                <div className="text-base sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold text-transparent bg-gradient-to-r from-brand-400 to-brand-600 bg-clip-text mb-1 animate-count-up group-hover:scale-110 transition-transform duration-300">100+</div>
                 <div className="text-brand-300 text-xs sm:text-sm md:text-base leading-tight flex items-center justify-center gap-1">
                   <svg className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                     <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
                   </svg>
-                  <span className="text-center">{t('happyClients')}</span>
+                  <span className="text-center">Happy Clients</span>
                 </div>
               </div>
               <div className="group cursor-pointer rounded-xl p-2 sm:p-3 md:p-4 lg:p-6 hover:bg-white/5 transition-all duration-300">
-                <div className="text-base sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold text-transparent bg-gradient-to-r from-brand-400 to-brand-600 bg-clip-text mb-1 animate-count-up group-hover:scale-110 transition-transform duration-300">1000+</div>
+                <div className="text-base sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold text-transparent bg-gradient-to-r from-brand-400 to-brand-600 bg-clip-text mb-1 animate-count-up group-hover:scale-110 transition-transform duration-300">200M+</div>
                 <div className="text-brand-300 text-xs sm:text-sm md:text-base leading-tight flex items-center justify-center gap-1">
                   <svg className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M18 8a6 6 0 01-7.743 5.743L10 14l-1 1-1 1H6v2H2v-4l4.257-4.257A6 6 0 1118 8zm-6-4a1 1 0 100 2 2 2 0 012 2 1 1 0 102 0 4 4 0 00-4-4z" clipRule="evenodd"/>
                   </svg>
-                  <span className="text-center">{t('keysDelivered')}</span>
+                  <span className="text-center">Transactions</span>
                 </div>
               </div>
               <div className="group cursor-pointer rounded-xl p-2 sm:p-3 md:p-4 lg:p-6 hover:bg-white/5 transition-all duration-300">
-                <div className="text-base sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold text-transparent bg-gradient-to-r from-brand-400 to-brand-600 bg-clip-text mb-1 animate-count-up group-hover:scale-110 transition-transform duration-300">15+</div>
+                <div className="text-base sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold text-transparent bg-gradient-to-r from-brand-400 to-brand-600 bg-clip-text mb-1 animate-count-up group-hover:scale-110 transition-transform duration-300">2+</div>
                 <div className="text-brand-300 text-xs sm:text-sm md:text-base leading-tight break-words flex items-center justify-center gap-1 flex-wrap">
                   <svg className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                     <path fillRule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clipRule="evenodd"/>
                   </svg>
-                  <span className="text-center">{t('yearsExperience')}</span>
+                  <span className="text-center">Years Experience</span>
                 </div>
               </div>
             </div>

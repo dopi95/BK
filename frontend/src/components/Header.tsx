@@ -52,7 +52,7 @@ export default function Header() {
               suppressHydrationWarning={true}
             >
               <div className="text-xl font-bold bg-gradient-to-r from-brand-600 to-brand-500 bg-clip-text text-transparent">
-                {language === 'am' ? 'ቤቶን ከኛ' : 'ቤቶን ከኛ'}
+                {language === 'am' ? 'ቤቶን ከእኛ' : 'ቤቶን ከእኛ'}
               </div>
               <div className="text-sm text-gray-600 dark:text-gray-400">
                 {language === 'am' ? 'Beton Kegna' : 'Beton Kegna'}

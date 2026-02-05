@@ -10,7 +10,7 @@ import { LanguageProvider } from '@/contexts/LanguageContext'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Beton Kegna - ቤቶን ከኛ | Real Estate Consultancy',
+  title: 'Beton Kegna - ቤቶን ከእኛ | Real Estate Consultancy',
   description: 'Professional real estate consultancy services in Ethiopia. Find your perfect property with Beton Kegna.',
 }
 

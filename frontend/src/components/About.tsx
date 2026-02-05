@@ -47,7 +47,7 @@ export default function About() {
     },
     {
       name: 'Instagram',
-      url: 'https://instagram.com/fanu_el63',
+      url: 'https://instagram.com/fanuel_properties',
       color: 'hover:bg-gradient-to-r hover:from-purple-500 hover:to-pink-500',
       icon: (
         <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
@@ -93,7 +93,7 @@ export default function About() {
               <div className="relative w-80 h-80 mx-auto lg:mx-0 rounded-2xl overflow-hidden shadow-2xl">
                 <Image
                   src="/images/fanuel.jpg"
-                  alt="Fanuel - Real Estate Consultant"
+                  alt="Fanuel - Sales"
                   fill
                   className="object-cover"
                   priority
@@ -104,10 +104,10 @@ export default function About() {
               {/* Consultant Info */}
               <div className="text-center lg:text-left mt-6">
                 <h3 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
-                  Fanuel
+                  Fanuel Kemeto
                 </h3>
                 <p className="text-xl text-brand-600 dark:text-brand-400 font-semibold mb-4">
-                  {t('realEstateConsultant')}
+                  Sales
                 </p>
                 <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
                   {t('consultantBio')}

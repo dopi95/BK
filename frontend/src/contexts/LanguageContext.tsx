@@ -62,7 +62,7 @@ const translations = {
     about: 'ስለ እኛ',
     contact: 'ያግኙን',
     getStarted: 'ያግኙን',
-    brandName: 'ቤቶን ከኛ',
+    brandName: 'ቤቶን ከእኛ',
     tagline: 'በኢትዮጵያ የሚታመን የሪል እስቴት አማካሪ አጋርዎ',
     contactUs: 'ያግኙን',
     exploreProperties: 'ንብረቶችን ይመልከቱ',
