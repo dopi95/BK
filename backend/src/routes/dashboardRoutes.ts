@@ -1,9 +1,8 @@
-import express from 'express'
-import { getStats, updateStats } from '../controllers/dashboardController'
+import { Router } from 'express';
+import { getStats } from '../controllers/dashboardController';
 
-const router = express.Router()
+const router = Router();
 
-router.get('/stats', getStats)
-router.put('/stats', updateStats)
+router.get('/stats', getStats);
 
-export default router
+export default router;

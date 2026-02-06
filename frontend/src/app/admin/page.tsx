@@ -27,19 +27,22 @@ export default function AdminDashboard() {
     
     setUser(JSON.parse(userData))
     fetchStats()
-    
-    // Refresh stats every 5 seconds
-    const interval = setInterval(fetchStats, 5000)
-    return () => clearInterval(interval)
   }, [router])
 
   const fetchStats = async () => {
     try {
+      console.log('Fetching stats from:', `${process.env.NEXT_PUBLIC_API_URL}/api/dashboard/stats`)
       const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/dashboard/stats`)
-      const data = await res.json()
-      setStats(data)
+      console.log('Response status:', res.status)
+      if (res.ok) {
+        const data = await res.json()
+        console.log('Stats data:', data)
+        setStats(data)
+      } else {
+        console.error('Failed to fetch stats, status:', res.status)
+      }
     } catch (error) {
-      console.error('Failed to fetch stats')
+      console.error('Failed to fetch stats:', error)
     }
   }
 
