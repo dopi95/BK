@@ -7,8 +7,11 @@ import Image from 'next/image'
 export default function About() {
   const { t } = useLanguage()
   const [isVisible, setIsVisible] = useState(false)
+  const [aboutImage, setAboutImage] = useState('/images/fanuel.jpg')
 
   useEffect(() => {
+    fetchAboutImage()
+    
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -23,6 +26,16 @@ export default function About() {
 
     return () => observer.disconnect()
   }, [])
+
+  const fetchAboutImage = async () => {
+    try {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/about/image`)
+      const data = await res.json()
+      if (data?.imageUrl) setAboutImage(data.imageUrl)
+    } catch (error) {
+      console.error('Failed to load about image')
+    }
+  }
 
   const socialLinks = [
     {
@@ -112,7 +125,7 @@ export default function About() {
               {/* Profile Image */}
               <div className="relative w-80 h-80 mx-auto lg:mx-0 rounded-2xl overflow-hidden shadow-2xl">
                 <Image
-                  src="/images/fanuel.jpg"
+                  src={aboutImage}
                   alt="Fanuel - Sales"
                   fill
                   className="object-cover"

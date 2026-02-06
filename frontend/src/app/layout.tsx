@@ -1,3 +1,6 @@
+'use client'
+
+import { usePathname } from 'next/navigation'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
@@ -9,32 +12,28 @@ import { LanguageProvider } from '@/contexts/LanguageContext'
 
 const inter = Inter({ subsets: ['latin'] })
 
-export const metadata: Metadata = {
-  title: 'Beton Kegna - ቤቶን ከእኛ | Real Estate Consultancy',
-  description: 'Professional real estate consultancy services in Ethiopia. Find your perfect property with Beton Kegna.',
-  icons: {
-    icon: '/assets/logo.jpg',
-    shortcut: '/assets/logo.jpg',
-    apple: '/assets/logo.jpg',
-  },
-}
-
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
+  const pathname = usePathname()
+  const isLoginPage = pathname === '/login'
+  const isForgotPasswordPage = pathname === '/forgot-password'
+  const isAdminPage = pathname?.startsWith('/admin')
+  const hideLayout = isLoginPage || isForgotPasswordPage || isAdminPage
+
   return (
     <html lang="en">
       <body className={`${inter.className} bg-white dark:bg-gray-900 transition-colors duration-300`}>
         <ThemeProvider>
           <LanguageProvider>
-            <Header />
-            <main className="pt-20">
+            {!hideLayout && <Header />}
+            <main className={hideLayout ? '' : 'pt-20'}>
               {children}
             </main>
-            <Footer />
-            <FloatingContact />
+            {!hideLayout && <Footer />}
+            {!hideLayout && <FloatingContact />}
           </LanguageProvider>
         </ThemeProvider>
       </body>

@@ -4,42 +4,68 @@ import { useLanguage } from '@/contexts/LanguageContext'
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 
+interface HeroSlide {
+  _id: string
+  imageUrl: string
+  order: number
+}
+
+interface HeroStat {
+  _id: string
+  value: string
+  label: string
+  order: number
+}
+
 export default function Hero() {
   const { t } = useLanguage()
   const router = useRouter()
   const [isVisible, setIsVisible] = useState(false)
   const [currentSlide, setCurrentSlide] = useState(0)
-
-  const backgroundImages = [
-    '/images/sl1.jpg',
-    '/images/sl2.jpg',
-    '/images/sl3.jpg',
-    '/images/sl4.jpg',
-    '/images/sl5.jpg'
-  ]
+  const [slides, setSlides] = useState<HeroSlide[]>([])
+  const [stats, setStats] = useState<HeroStat[]>([])
 
   useEffect(() => {
     setIsVisible(true)
-    
-    const interval = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % backgroundImages.length)
-    }, 4000)
-    
-    return () => clearInterval(interval)
+    fetchHeroData()
   }, [])
+
+  useEffect(() => {
+    if (slides.length > 0) {
+      const interval = setInterval(() => {
+        setCurrentSlide((prev) => (prev + 1) % slides.length)
+      }, 4000)
+      return () => clearInterval(interval)
+    }
+  }, [slides])
+
+  const fetchHeroData = async () => {
+    try {
+      const [slidesRes, statsRes] = await Promise.all([
+        fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/hero/slides`),
+        fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/hero/stats`)
+      ])
+      const slidesData = await slidesRes.json()
+      const statsData = await statsRes.json()
+      setSlides(slidesData)
+      setStats(statsData)
+    } catch (error) {
+      console.error('Failed to fetch hero data')
+    }
+  }
 
   return (
     <section id="home" className="relative h-screen flex items-center justify-center overflow-hidden">
       {/* Background Slider */}
       <div className="absolute inset-0 z-0">
-        {backgroundImages.map((image, index) => (
+        {slides.map((slide, index) => (
           <div
-            key={index}
+            key={slide._id}
             className={`absolute inset-0 transition-opacity duration-1500 ease-in-out ${
               index === currentSlide ? 'opacity-100' : 'opacity-0'
             }`}
           >
-            <div className="absolute inset-0 bg-cover bg-center" style={{backgroundImage: `url(${image})`}}></div>
+            <div className="absolute inset-0 bg-cover bg-center" style={{backgroundImage: `url(${slide.imageUrl})`}}></div>
             <div className="absolute inset-0 bg-black/60"></div>
           </div>
         ))}
@@ -110,57 +136,24 @@ export default function Hero() {
           <div className="flex flex-col lg:flex-row items-center justify-center gap-8 lg:gap-16 animate-fade-in-up delay-700">
             {/* Animated Stats */}
             <div className="grid grid-cols-3 gap-2 sm:gap-4 md:gap-6 lg:gap-8 px-2">
-              <div className="group cursor-pointer rounded-xl p-2 sm:p-3 md:p-4 lg:p-6 hover:bg-white/5 transition-all duration-300">
-                <div className="text-base sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold text-transparent bg-gradient-to-r from-brand-400 to-brand-600 bg-clip-text mb-1 animate-count-up group-hover:scale-110 transition-transform duration-300 font-stats">100+</div>
-                <div className="text-brand-300 text-xs sm:text-sm md:text-base leading-tight flex items-center justify-center gap-1 font-text">
-                  <svg className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                  </svg>
-                  <span className="text-center">Happy Clients</span>
+              {stats.map((stat) => (
+                <div key={stat._id} className="group cursor-pointer rounded-xl p-2 sm:p-3 md:p-4 lg:p-6 hover:bg-white/5 transition-all duration-300">
+                  <div className="text-base sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold text-transparent bg-gradient-to-r from-brand-400 to-brand-600 bg-clip-text mb-1 animate-count-up group-hover:scale-110 transition-transform duration-300 font-stats">{stat.value}</div>
+                  <div className="text-brand-300 text-xs sm:text-sm md:text-base leading-tight flex items-center justify-center gap-1 font-text">
+                    <svg className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                      <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                    <span className="text-center">{stat.label}</span>
+                  </div>
                 </div>
-              </div>
-              <div className="group cursor-pointer rounded-xl p-2 sm:p-3 md:p-4 lg:p-6 hover:bg-white/5 transition-all duration-300">
-                <div className="text-base sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold text-transparent bg-gradient-to-r from-brand-400 to-brand-600 bg-clip-text mb-1 animate-count-up group-hover:scale-110 transition-transform duration-300 font-stats">200M+</div>
-                <div className="text-brand-300 text-xs sm:text-sm md:text-base leading-tight flex items-center justify-center gap-1 font-text">
-                  <svg className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M18 8a6 6 0 01-7.743 5.743L10 14l-1 1-1 1H6v2H2v-4l4.257-4.257A6 6 0 1118 8zm-6-4a1 1 0 100 2 2 2 0 012 2 1 1 0 102 0 4 4 0 00-4-4z" clipRule="evenodd"/>
-                  </svg>
-                  <span className="text-center">Transactions</span>
-                </div>
-              </div>
-              <div className="group cursor-pointer rounded-xl p-2 sm:p-3 md:p-4 lg:p-6 hover:bg-white/5 transition-all duration-300">
-                <div className="text-base sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold text-transparent bg-gradient-to-r from-brand-400 to-brand-600 bg-clip-text mb-1 animate-count-up group-hover:scale-110 transition-transform duration-300 font-stats">2+</div>
-                <div className="text-brand-300 text-xs sm:text-sm md:text-base leading-tight break-words flex items-center justify-center gap-1 flex-wrap font-text">
-                  <svg className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clipRule="evenodd"/>
-                  </svg>
-                  <span className="text-center">Years Experience</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Slider Dots - Right Corner on Desktop - HIDDEN */}
-            <div className="hidden">
-              <div className="flex flex-col space-y-3">
-                {backgroundImages.map((_, index) => (
-                  <button
-                    key={index}
-                    onClick={() => setCurrentSlide(index)}
-                    className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                      index === currentSlide
-                        ? 'bg-brand-400 scale-125'
-                        : 'bg-white/50 hover:bg-white/70'
-                    }`}
-                  />
-                ))}
-              </div>
+              ))}
             </div>
 
             {/* Slider Dots - Bottom Center on Mobile/Tablet */}
             <div className="lg:hidden flex space-x-3 z-30">
-              {backgroundImages.map((_, index) => (
+              {slides.map((slide, index) => (
                 <button
-                  key={index}
+                  key={slide._id}
                   onClick={() => setCurrentSlide(index)}
                   className={`w-3 h-3 rounded-full transition-all duration-300 ${
                     index === currentSlide
