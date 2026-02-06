@@ -33,7 +33,7 @@ export default function About() {
       const data = await res.json()
       if (data?.imageUrl) setAboutImage(data.imageUrl)
     } catch (error) {
-      console.error('Failed to load about image')
+      // Silent fail
     }
   }
 

@@ -50,7 +50,7 @@ export default function Hero() {
       setSlides(slidesData)
       setStats(statsData)
     } catch (error) {
-      console.error('Failed to fetch hero data')
+      // Silent fail
     }
   }
 

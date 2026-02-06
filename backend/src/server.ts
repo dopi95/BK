@@ -15,10 +15,22 @@ const app: Application = express();
 const PORT = process.env.PORT || 5000;
 
 // Middleware
+const allowedOrigins = [
+  'https://betonkegna.vercel.app',
+  'https://www.betonkegna.com',
+  'https://betonkegna.com',
+  'http://localhost:3000',
+  'http://localhost:3300'
+];
+
 app.use(cors({
-  origin: process.env.NODE_ENV === 'production' 
-    ? 'https://betonkegna.vercel.app' 
-    : 'http://localhost:3000',
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   credentials: true
 }));
 app.use(express.json());
