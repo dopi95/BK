@@ -284,35 +284,7 @@ export default function Properties() {
                   <button
                     onClick={() => {
                       if (property.tourVideo && property.tourVideo.trim()) {
-                        if (property.tourVideo.includes('youtube.com') || property.tourVideo.includes('youtu.be')) {
-                          openTourModal(property)
-                        } else {
-                          const video = document.createElement('video')
-                          video.src = property.tourVideo
-                          video.controls = true
-                          video.autoplay = true
-                          video.style.width = '100%'
-                          video.style.height = '100%'
-                          video.style.borderRadius = '8px'
-                          
-                          const modal = document.createElement('div')
-                          modal.className = 'fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4'
-                          modal.innerHTML = `
-                            <div class="bg-white dark:bg-gray-900 rounded-2xl w-full max-w-4xl p-6">
-                              <div class="flex justify-between items-center mb-6">
-                                <h3 class="text-2xl font-bold text-gray-900 dark:text-white">3D Tour - ${property.name}</h3>
-                                <button onclick="this.closest('.fixed').remove()" class="text-gray-500 hover:text-gray-700">
-                                  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                                  </svg>
-                                </button>
-                              </div>
-                              <div class="aspect-video"></div>
-                            </div>
-                          `
-                          modal.querySelector('.aspect-video')?.appendChild(video)
-                          document.body.appendChild(modal)
-                        }
+                        openTourModal(property)
                       } else {
                         alert('No 3D tour available for this property')
                       }
@@ -507,57 +479,63 @@ export default function Properties() {
               </div>
               
               <div className="aspect-video">
-                {selectedProperty.tourVideo.includes('youtube.com') || selectedProperty.tourVideo.includes('youtu.be') ? (
-                  <iframe
-                    src={(() => {
-                      let url = selectedProperty.tourVideo.trim()
-                      let videoId = ''
-                      
-                      // Remove any trailing slashes
-                      url = url.replace(/\/$/, '')
-                      
-                      // Extract video ID from various YouTube URL formats
-                      if (url.includes('/live/')) {
-                        videoId = url.split('/live/')[1].split('?')[0].split('&')[0].split('/')[0]
-                      } else if (url.includes('youtu.be/')) {
-                        videoId = url.split('youtu.be/')[1].split('?')[0].split('&')[0].split('/')[0]
-                      } else if (url.includes('watch?v=')) {
-                        videoId = url.split('watch?v=')[1].split('&')[0].split('#')[0]
-                      } else if (url.includes('/embed/')) {
-                        videoId = url.split('/embed/')[1].split('?')[0].split('&')[0].split('/')[0]
-                      } else if (url.includes('v=')) {
-                        videoId = url.split('v=')[1].split('&')[0].split('#')[0]
-                      } else if (url.includes('/v/')) {
-                        videoId = url.split('/v/')[1].split('?')[0].split('&')[0].split('/')[0]
-                      }
-                      
-                      // Clean video ID
-                      videoId = videoId.trim()
-                      
-                      if (!videoId) {
-                        console.error('Could not extract video ID from:', url)
-                        return ''
-                      }
-                      
-                      return `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`
-                    })()}
-                    title="3D Property Tour"
-                    className="w-full h-full rounded-lg"
-                    frameBorder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                  ></iframe>
-                ) : (
-                  <video
-                    src={selectedProperty.tourVideo}
-                    title="3D Property Tour"
-                    className="w-full h-full rounded-lg"
-                    controls
-                    autoPlay
-                    muted
-                    playsInline
-                  ></video>
-                )}
+                {(() => {
+                  const url = selectedProperty.tourVideo.trim()
+                  
+                  // Check if it's a YouTube URL
+                  if (url.includes('youtube.com') || url.includes('youtu.be')) {
+                    let videoId = ''
+                    
+                    if (url.includes('youtu.be/')) {
+                      videoId = url.split('youtu.be/')[1].split('?')[0]
+                    } else if (url.includes('watch?v=')) {
+                      videoId = url.split('watch?v=')[1].split('&')[0]
+                    } else if (url.includes('/embed/')) {
+                      videoId = url.split('/embed/')[1].split('?')[0]
+                    }
+                    
+                    if (videoId) {
+                      return (
+                        <iframe
+                          src={`https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`}
+                          title="3D Property Tour"
+                          className="w-full h-full rounded-lg"
+                          frameBorder="0"
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                          allowFullScreen
+                        ></iframe>
+                      )
+                    }
+                  }
+                  
+                  // Check if it's a direct video file
+                  if (url.match(/\.(mp4|webm|ogg|mov|avi)$/i)) {
+                    return (
+                      <video
+                        src={url}
+                        className="w-full h-full rounded-lg"
+                        controls
+                        autoPlay
+                        muted
+                        playsInline
+                      ></video>
+                    )
+                  }
+                  
+                  // For other URLs, try iframe with error handling
+                  return (
+                    <div className="relative w-full h-full">
+                      <iframe
+                        src={url}
+                        title="3D Property Tour"
+                        className="w-full h-full rounded-lg border-0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
+                        allowFullScreen
+                      ></iframe>
+                      <div className="absolute inset-0 pointer-events-none" style={{background: 'transparent'}}></div>
+                    </div>
+                  )
+                })()}
               </div>
             </div>
           </div>

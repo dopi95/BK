@@ -54,6 +54,9 @@ export default function PropertiesAdmin() {
   const [imageFiles, setImageFiles] = useState<FileList | null>(null)
   const [detailImageFiles, setDetailImageFiles] = useState<FileList | null>(null)
   const [floorPlanFiles, setFloorPlanFiles] = useState<FileList | null>(null)
+  const [existingImages, setExistingImages] = useState<string[]>([])
+  const [existingDetailImages, setExistingDetailImages] = useState<string[]>([])
+  const [existingFloorPlans, setExistingFloorPlans] = useState<string[]>([])
 
   useEffect(() => {
     fetchProperties()
@@ -127,9 +130,9 @@ export default function PropertiesAdmin() {
     }
 
     if (editingProperty) {
-      formDataToSend.append('existingImages', JSON.stringify(editingProperty.images))
-      formDataToSend.append('existingDetailImages', JSON.stringify(editingProperty.detailImages || []))
-      formDataToSend.append('existingFloorPlans', JSON.stringify(editingProperty.floorPlans || []))
+      formDataToSend.append('existingImages', JSON.stringify(existingImages))
+      formDataToSend.append('existingDetailImages', JSON.stringify(existingDetailImages))
+      formDataToSend.append('existingFloorPlans', JSON.stringify(existingFloorPlans))
     }
 
     try {
@@ -199,6 +202,9 @@ export default function PropertiesAdmin() {
         floorPlans: JSON.stringify(property.floorPlans || [])
       })
       setInvestmentReasons(reasons.length > 0 ? reasons.map(r => `${r.title}: ${r.description}`) : [''])
+      setExistingImages(property.images || [])
+      setExistingDetailImages(property.detailImages || [])
+      setExistingFloorPlans(property.floorPlans || [])
     } else {
       setEditingProperty(null)
       setFormData({
@@ -224,6 +230,9 @@ export default function PropertiesAdmin() {
         floorPlans: ''
       })
       setInvestmentReasons([''])
+      setExistingImages([])
+      setExistingDetailImages([])
+      setExistingFloorPlans([])
     }
     setImageFiles(null)
     setDetailImageFiles(null)
@@ -237,6 +246,9 @@ export default function PropertiesAdmin() {
     setImageFiles(null)
     setDetailImageFiles(null)
     setFloorPlanFiles(null)
+    setExistingImages([])
+    setExistingDetailImages([])
+    setExistingFloorPlans([])
   }
 
   const addInvestmentReason = () => {
@@ -246,6 +258,16 @@ export default function PropertiesAdmin() {
   const removeInvestmentReason = (index: number) => {
     if (investmentReasons.length > 1) {
       setInvestmentReasons(investmentReasons.filter((_, i) => i !== index))
+    }
+  }
+
+  const removeExistingImage = (index: number, type: 'main' | 'detail' | 'floor') => {
+    if (type === 'main') {
+      setExistingImages(existingImages.filter((_, i) => i !== index))
+    } else if (type === 'detail') {
+      setExistingDetailImages(existingDetailImages.filter((_, i) => i !== index))
+    } else if (type === 'floor') {
+      setExistingFloorPlans(existingFloorPlans.filter((_, i) => i !== index))
     }
   }
 
@@ -584,6 +606,28 @@ export default function PropertiesAdmin() {
 
                 <div>
                   <label className="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">Main Images (Slideshow)</label>
+                  
+                  {/* Existing Images */}
+                  {existingImages.length > 0 && (
+                    <div className="mb-3">
+                      <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">Existing Images:</p>
+                      <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                        {existingImages.map((image, index) => (
+                          <div key={index} className="relative group">
+                            <img src={image} alt={`Existing ${index + 1}`} className="w-full h-20 object-cover rounded border" />
+                            <button
+                              type="button"
+                              onClick={() => removeExistingImage(index, 'main')}
+                              className="absolute -top-1 -right-1 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs hover:bg-red-600"
+                            >
+                              ✕
+                            </button>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                  
                   <input
                     type="file"
                     multiple
@@ -591,15 +635,33 @@ export default function PropertiesAdmin() {
                     onChange={e => setImageFiles(e.target.files)}
                     className={inputClass}
                   />
-                  {editingProperty && editingProperty.images.length > 0 && (
-                    <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
-                      📷 {editingProperty.images.length} existing image(s)
-                    </p>
-                  )}
+                  <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">Add new images to slideshow</p>
                 </div>
 
                 <div>
                   <label className="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">Detail Images (Other Details Section)</label>
+                  
+                  {/* Existing Detail Images */}
+                  {existingDetailImages.length > 0 && (
+                    <div className="mb-3">
+                      <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">Existing Detail Images:</p>
+                      <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                        {existingDetailImages.map((image, index) => (
+                          <div key={index} className="relative group">
+                            <img src={image} alt={`Detail ${index + 1}`} className="w-full h-20 object-cover rounded border" />
+                            <button
+                              type="button"
+                              onClick={() => removeExistingImage(index, 'detail')}
+                              className="absolute -top-1 -right-1 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs hover:bg-red-600"
+                            >
+                              ✕
+                            </button>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                  
                   <input
                     type="file"
                     multiple
@@ -607,15 +669,33 @@ export default function PropertiesAdmin() {
                     onChange={e => setDetailImageFiles(e.target.files)}
                     className={inputClass}
                   />
-                  {editingProperty && editingProperty.detailImages && editingProperty.detailImages.length > 0 && (
-                    <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
-                      🖼️ {editingProperty.detailImages.length} existing detail image(s)
-                    </p>
-                  )}
+                  <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">Add new detail images</p>
                 </div>
 
                 <div>
                   <label className="block text-sm font-medium mb-2 text-gray-700 dark:text-gray-300">Floor Plans</label>
+                  
+                  {/* Existing Floor Plans */}
+                  {existingFloorPlans.length > 0 && (
+                    <div className="mb-3">
+                      <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">Existing Floor Plans:</p>
+                      <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                        {existingFloorPlans.map((image, index) => (
+                          <div key={index} className="relative group">
+                            <img src={image} alt={`Floor Plan ${index + 1}`} className="w-full h-20 object-cover rounded border" />
+                            <button
+                              type="button"
+                              onClick={() => removeExistingImage(index, 'floor')}
+                              className="absolute -top-1 -right-1 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs hover:bg-red-600"
+                            >
+                              ✕
+                            </button>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                  
                   <input
                     type="file"
                     multiple
@@ -623,11 +703,7 @@ export default function PropertiesAdmin() {
                     onChange={e => setFloorPlanFiles(e.target.files)}
                     className={inputClass}
                   />
-                  {editingProperty && editingProperty.floorPlans && editingProperty.floorPlans.length > 0 && (
-                    <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
-                      📐 {editingProperty.floorPlans.length} existing floor plan(s)
-                    </p>
-                  )}
+                  <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">Add new floor plans</p>
                 </div>
 
                 <div className="flex flex-col sm:flex-row gap-3 pt-4">
