@@ -30,7 +30,7 @@ export default function Properties() {
   const [selectedProperty, setSelectedProperty] = useState<Property | null>(null)
   const [showDetailModal, setShowDetailModal] = useState(false)
   const [showTourModal, setShowTourModal] = useState(false)
-  const [currentImageIndex, setCurrentImageIndex] = useState<{[key: number]: number}>({})
+  const [currentImageIndex, setCurrentImageIndex] = useState<{[key: string]: number}>({})
   const [detailImageIndex, setDetailImageIndex] = useState(0)
   const [activeFilter, setActiveFilter] = useState('all')
 
@@ -100,7 +100,7 @@ export default function Properties() {
       const interval = setInterval(() => {
         setCurrentImageIndex(prev => ({
           ...prev,
-          [property.id]: ((prev[property.id] || 0) + 1) % property.images.length
+          [property.id as string]: ((prev[property.id as string] || 0) + 1) % property.images.length
         }))
       }, 3000)
       intervals.push(interval)
@@ -210,7 +210,7 @@ export default function Properties() {
               {/* Image Slider */}
               <div className="relative h-64 overflow-hidden">
                 <Image
-                  src={property.images[currentImageIndex[property.id] || 0]}
+                  src={property.images[currentImageIndex[property.id as string] || 0]}
                   alt={property.name}
                   fill
                   className="object-cover transition-transform duration-500 group-hover:scale-110"
@@ -222,9 +222,9 @@ export default function Properties() {
                   {property.images.map((_, imgIndex) => (
                     <button
                       key={imgIndex}
-                      onClick={() => setCurrentImageIndex(prev => ({...prev, [property.id]: imgIndex}))}
+                      onClick={() => setCurrentImageIndex(prev => ({...prev, [property.id as string]: imgIndex}))}
                       className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                        (currentImageIndex[property.id] || 0) === imgIndex
+                        (currentImageIndex[property.id as string] || 0) === imgIndex
                           ? 'bg-brand-400 scale-125'
                           : 'bg-white/50 hover:bg-white/70'
                       }`}
