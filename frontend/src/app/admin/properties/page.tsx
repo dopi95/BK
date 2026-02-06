@@ -48,9 +48,9 @@ export default function PropertiesAdmin() {
     parking: '',
     finishingStatus: '',
     completionDate: '',
-    investmentReasons: '',
     floorPlans: ''
   })
+  const [investmentReasons, setInvestmentReasons] = useState<string[]>([''])
   const [imageFiles, setImageFiles] = useState<FileList | null>(null)
   const [detailImageFiles, setDetailImageFiles] = useState<FileList | null>(null)
   const [floorPlanFiles, setFloorPlanFiles] = useState<FileList | null>(null)
@@ -100,7 +100,7 @@ export default function PropertiesAdmin() {
       completionDate: formData.completionDate
     }))
     
-    const reasons = formData.investmentReasons.split('\n').filter(r => r.trim()).map((reason, idx) => ({
+    const reasons = investmentReasons.filter(reason => reason.trim()).map((reason, idx) => ({
       number: String(idx + 1).padStart(2, '0'),
       title: reason.split(':')[0]?.trim() || '',
       description: reason.split(':')[1]?.trim() || reason.trim()
@@ -175,7 +175,7 @@ export default function PropertiesAdmin() {
     if (property) {
       setEditingProperty(property)
       const overview = property.overview || {}
-      const reasons = (property.investmentReasons || []).map(r => `${r.title}: ${r.description}`).join('\n')
+      const reasons = property.investmentReasons || []
       setFormData({
         name: property.name,
         slug: property.slug,
@@ -196,9 +196,9 @@ export default function PropertiesAdmin() {
         parking: overview.parking || '',
         finishingStatus: overview.finishingStatus || '',
         completionDate: overview.completionDate || '',
-        investmentReasons: reasons,
         floorPlans: JSON.stringify(property.floorPlans || [])
       })
+      setInvestmentReasons(reasons.length > 0 ? reasons.map(r => `${r.title}: ${r.description}`) : [''])
     } else {
       setEditingProperty(null)
       setFormData({
@@ -221,9 +221,9 @@ export default function PropertiesAdmin() {
         parking: '',
         finishingStatus: '',
         completionDate: '',
-        investmentReasons: '',
         floorPlans: ''
       })
+      setInvestmentReasons([''])
     }
     setImageFiles(null)
     setDetailImageFiles(null)
@@ -237,6 +237,22 @@ export default function PropertiesAdmin() {
     setImageFiles(null)
     setDetailImageFiles(null)
     setFloorPlanFiles(null)
+  }
+
+  const addInvestmentReason = () => {
+    setInvestmentReasons([...investmentReasons, ''])
+  }
+
+  const removeInvestmentReason = (index: number) => {
+    if (investmentReasons.length > 1) {
+      setInvestmentReasons(investmentReasons.filter((_, i) => i !== index))
+    }
+  }
+
+  const updateInvestmentReason = (index: number, value: string) => {
+    const updated = [...investmentReasons]
+    updated[index] = value
+    setInvestmentReasons(updated)
   }
 
   const inputClass = "w-full px-3 sm:px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:ring-2 focus:ring-brand-500 focus:border-transparent text-sm sm:text-base"
@@ -358,14 +374,13 @@ export default function PropertiesAdmin() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium mb-1 text-gray-700 dark:text-gray-300">Description *</label>
+                  <label className="block text-sm font-medium mb-1 text-gray-700 dark:text-gray-300">Description</label>
                   <textarea
-                    placeholder="Property description"
+                    placeholder="Property description (optional)"
                     value={formData.description}
                     onChange={e => setFormData({...formData, description: e.target.value})}
                     className={inputClass}
                     rows={3}
-                    required
                   />
                 </div>
 
@@ -382,16 +397,15 @@ export default function PropertiesAdmin() {
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium mb-1 text-gray-700 dark:text-gray-300">Units Available *</label>
+                    <label className="block text-sm font-medium mb-1 text-gray-700 dark:text-gray-300">Units Available</label>
                     <input
                       type="text"
-                      placeholder="e.g., 196"
+                      placeholder="e.g., 196 (optional)"
                       value={formData.area}
                       onChange={e => setFormData({...formData, area: e.target.value})}
                       className={inputClass}
-                      required
                     />
-                    <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">Will display as "X Units Available"</p>
+                    <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">Will display as "X Units Available" (optional)</p>
                   </div>
                 </div>
 
@@ -409,14 +423,13 @@ export default function PropertiesAdmin() {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-medium mb-1 text-gray-700 dark:text-gray-300">Map URL *</label>
+                    <label className="block text-sm font-medium mb-1 text-gray-700 dark:text-gray-300">Map URL</label>
                     <input
                       type="text"
-                      placeholder="Google Maps URL"
+                      placeholder="Google Maps URL (optional)"
                       value={formData.mapUrl}
                       onChange={e => setFormData({...formData, mapUrl: e.target.value})}
                       className={inputClass}
-                      required
                     />
                   </div>
                   <div>
@@ -529,15 +542,44 @@ export default function PropertiesAdmin() {
                 </div>
 
                 <div className="border-t border-gray-200 dark:border-gray-700 pt-4 mt-2">
-                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">Why Invest</h3>
-                  <label className="block text-sm font-medium mb-1 text-gray-700 dark:text-gray-300">One reason per line (format: Title: Description)</label>
-                  <textarea
-                    placeholder="Prime Location: Located in the heart of 4 Kilo\nHigh ROI: Expected returns of 12-15% annually\nModern Design: Contemporary architecture with premium finishes"
-                    value={formData.investmentReasons}
-                    onChange={e => setFormData({...formData, investmentReasons: e.target.value})}
-                    className={inputClass}
-                    rows={8}
-                  />
+                  <div className="flex justify-between items-center mb-4">
+                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Why Invest</h3>
+                    <button
+                      type="button"
+                      onClick={addInvestmentReason}
+                      className="bg-green-500 text-white px-3 py-1 rounded text-sm hover:bg-green-600 transition-colors"
+                    >
+                      + Add Field
+                    </button>
+                  </div>
+                  <div className="space-y-3">
+                    {investmentReasons.map((reason, index) => (
+                      <div key={index} className="flex gap-2">
+                        <div className="flex-1">
+                          <label className="block text-sm font-medium mb-1 text-gray-700 dark:text-gray-300">
+                            {String(index + 1).padStart(2, '0')}. Investment Reason
+                          </label>
+                          <input
+                            type="text"
+                            placeholder="e.g., Prime Location: Located in the heart of 4 Kilo"
+                            value={reason}
+                            onChange={e => updateInvestmentReason(index, e.target.value)}
+                            className={inputClass}
+                          />
+                        </div>
+                        {investmentReasons.length > 1 && (
+                          <button
+                            type="button"
+                            onClick={() => removeInvestmentReason(index)}
+                            className="mt-6 bg-red-500 text-white px-3 py-2 rounded text-sm hover:bg-red-600 transition-colors h-fit"
+                          >
+                            ✕
+                          </button>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                  <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">Format: Title: Description (all fields are optional)</p>
                 </div>
 
                 <div>
