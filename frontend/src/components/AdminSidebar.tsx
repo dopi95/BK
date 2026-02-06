@@ -113,56 +113,54 @@ export default function AdminSidebar() {
       </button>
 
       {/* Sidebar */}
-      <aside className={`fixed top-0 left-0 h-screen w-64 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 transition-transform duration-300 z-40 ${
+      <aside className={`fixed top-0 left-0 h-full w-64 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 transition-transform duration-300 z-40 flex flex-col ${
         isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
       }`}>
-        <div className="flex flex-col h-full">
-          {/* Logo */}
-          <div className="flex items-center space-x-3 p-6 border-b border-gray-200 dark:border-gray-700">
-            <img src="/assets/logo.jpg" alt="Logo" className="h-10 w-10" />
-            <div className="flex-1 min-w-0">
-              <h2 className="text-lg font-bold bg-gradient-to-r from-brand-600 to-brand-500 bg-clip-text text-transparent truncate">
-                {user?.name || (language === 'am' ? 'አስተዳዳሪ' : 'Admin')}
-              </h2>
-              <p className="text-xs text-gray-500 dark:text-gray-400">
-                {language === 'am' ? 'አስተዳዳሪ' : 'Admin'}
-              </p>
-            </div>
+        {/* Logo */}
+        <div className="flex items-center space-x-3 p-6 border-b border-gray-200 dark:border-gray-700 flex-shrink-0">
+          <img src="/assets/logo.jpg" alt="Logo" className="h-10 w-10" />
+          <div className="flex-1 min-w-0">
+            <h2 className="text-lg font-bold bg-gradient-to-r from-brand-600 to-brand-500 bg-clip-text text-transparent truncate">
+              {user?.name || (language === 'am' ? 'አስተዳዳሪ' : 'Admin')}
+            </h2>
+            <p className="text-xs text-gray-500 dark:text-gray-400">
+              {language === 'am' ? 'አስተዳዳሪ' : 'Admin'}
+            </p>
           </div>
+        </div>
 
-          {/* Menu Items */}
-          <nav className="flex-1 p-4 space-y-2 overflow-y-auto">
-            {menuItems.map((item) => (
-              <button
-                key={item.path}
-                onClick={() => {
-                  router.push(item.path)
-                  setIsMobileMenuOpen(false)
-                }}
-                className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition-all ${
-                  pathname === item.path
-                    ? 'bg-brand-500 text-white shadow-lg'
-                    : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
-                }`}
-              >
-                {item.icon}
-                <span className="font-medium">{item.name}</span>
-              </button>
-            ))}
-          </nav>
-
-          {/* Logout Button */}
-          <div className="p-4 border-t border-gray-200 dark:border-gray-700">
+        {/* Menu Items */}
+        <nav className="flex-1 p-4 space-y-2 overflow-y-auto">
+          {menuItems.map((item) => (
             <button
-              onClick={handleLogout}
-              className="w-full flex items-center space-x-3 px-4 py-3 rounded-lg text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 transition-all"
+              key={item.path}
+              onClick={() => {
+                router.push(item.path)
+                setIsMobileMenuOpen(false)
+              }}
+              className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition-all ${
+                pathname === item.path
+                  ? 'bg-brand-500 text-white shadow-lg'
+                  : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700'
+              }`}
             >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
-              </svg>
-              <span className="font-medium">{language === 'am' ? 'ውጣ' : 'Logout'}</span>
+              {item.icon}
+              <span className="font-medium">{item.name}</span>
             </button>
-          </div>
+          ))}
+        </nav>
+
+        {/* Logout Button */}
+        <div className="p-4 border-t border-gray-200 dark:border-gray-700 flex-shrink-0">
+          <button
+            onClick={handleLogout}
+            className="w-full flex items-center space-x-3 px-4 py-3 rounded-lg text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 transition-all"
+          >
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+            </svg>
+            <span className="font-medium">{language === 'am' ? 'ውጣ' : 'Logout'}</span>
+          </button>
         </div>
       </aside>
 

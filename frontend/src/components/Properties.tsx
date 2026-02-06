@@ -1,7 +1,7 @@
 'use client'
 
 import { useLanguage } from '@/contexts/LanguageContext'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 
@@ -33,6 +33,7 @@ export default function Properties() {
   const [currentImageIndex, setCurrentImageIndex] = useState<{[key: string]: number}>({})
   const [detailImageIndex, setDetailImageIndex] = useState(0)
   const [activeFilter, setActiveFilter] = useState('all')
+  const videoRef = useRef<HTMLVideoElement>(null)
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -140,6 +141,12 @@ export default function Properties() {
     setSelectedProperty(property)
     setShowTourModal(true)
   }
+
+  useEffect(() => {
+    if (showTourModal && videoRef.current) {
+      videoRef.current.play().catch(() => {})
+    }
+  }, [showTourModal])
 
   return (
     <section id="properties" className="py-20 lg:py-32 bg-gray-50 dark:bg-gray-800 relative overflow-hidden">
@@ -497,7 +504,7 @@ export default function Properties() {
                     if (videoId) {
                       return (
                         <iframe
-                          src={`https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`}
+                          src={`https://www.youtube.com/embed/${videoId}?autoplay=1&mute=0&rel=0`}
                           title="3D Property Tour"
                           className="w-full h-full rounded-lg"
                           frameBorder="0"
@@ -512,11 +519,11 @@ export default function Properties() {
                   if (url.match(/\.(mp4|webm|ogg|mov|avi)$/i)) {
                     return (
                       <video
+                        ref={videoRef}
                         src={url}
                         className="w-full h-full rounded-lg"
                         controls
                         autoPlay
-                        muted
                         playsInline
                       ></video>
                     )
