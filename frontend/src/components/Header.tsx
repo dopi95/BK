@@ -22,8 +22,8 @@ export default function Header() {
   }, [])
 
   const scrollToSection = (sectionId: string) => {
-    // If we're on contact page, navigate to home first
-    if (window.location.pathname === '/contact') {
+    // If we're not on home page, navigate to home first
+    if (window.location.pathname !== '/') {
       window.location.href = `/#${sectionId}`
       return
     }

@@ -2,6 +2,7 @@
 
 import { useLanguage } from '@/contexts/LanguageContext'
 import { useState, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 
 interface Property {
@@ -22,6 +23,7 @@ interface Property {
 
 export default function Properties() {
   const { t, language } = useLanguage()
+  const router = useRouter()
   const [isVisible, setIsVisible] = useState(false)
   const [showAll, setShowAll] = useState(false)
   const [selectedProperty, setSelectedProperty] = useState<Property | null>(null)
@@ -93,11 +95,38 @@ export default function Properties() {
         '/images/gs2.jpg',
         '/images/gs3.png',
         '/images/gs4.jpg',
-        '/images/gs5.jpg'
+        '/images/gs5.jpg',
+        '/images/gs6.jpg'
       ],
       mapUrl: 'https://maps.google.com/?q=4+Kilo,Ambassador+Mall,Addis+Ababa',
       tourVideo: 'https://akoyarealproperty.com/wp-content/uploads/2025/10/Gold-Final.mp4',
-      features: language === 'am' ? ['የአገር ቦታ', 'የስይት ዱካን', 'ቡቲክ አንድ', 'ቡቲክ ሁለት', 'የወርቅ ዱካንዎች', 'የኮዝመቲክስ ዱካን', 'የመዋኛ ገንዳ', 'የመኪና ማቆሚያ', 'የለጀዎች የመዋታ ቦታ'] : ['Event / Common Space', 'Suit Shop', 'Boutique One', 'Boutique Two', 'Gold Shops', 'Cosmetics Shop', 'Swimming Pool', 'Covered Parking', 'Children\'s Play Area']
+      features: language === 'am' ? [
+        'የአገር ቦታ',
+        'የስይት ዱካን',
+        'ቡቲክ አንድ',
+        'ቡቲክ ሁለት',
+        'የወርቅ ዱካንዎች',
+        'የኮዝመቲክስ ዱካን',
+        'የመዋኛ ገንዳ',
+        'የመኪና ማቆሚያ',
+        'የለጀዎች የመዋታ ቦታ',
+        'ቫሌት ፓርኪንግ',
+        'EV ቻርጂንግ',
+        'ሙሉ ማጠናቀቂያ'
+      ] : [
+        'Event / Common Space',
+        'Suit Shop',
+        'Boutique One',
+        'Boutique Two',
+        'Gold Shops',
+        'Cosmetics Shop',
+        'Swimming Pool',
+        'Covered Parking',
+        'Children\'s Play Area',
+        'Valet Parking',
+        'EV Charging',
+        'Fully Finished'
+      ]
     },
     {
       id: 2,
@@ -328,7 +357,15 @@ export default function Properties() {
                 {/* Action Buttons */}
                 <div className="flex space-x-3">
                   <button
-                    onClick={() => openDetailModal(property)}
+                    onClick={() => {
+                      const slugs: { [key: number]: string } = {
+                        1: 'gold-souq',
+                        2: 'ameliaz',
+                        3: 'ozone',
+                        4: 'novelty'
+                      }
+                      router.push(`/projects/${slugs[property.id]}`)
+                    }}
                     className="flex-1 bg-brand-500 hover:bg-brand-600 text-white py-2 px-4 rounded-lg font-semibold transition-all duration-300 hover:scale-105 font-button"
                   >
                     {t('viewDetails')}
