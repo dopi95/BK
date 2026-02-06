@@ -5,6 +5,7 @@ import Image from 'next/image'
 import { useRouter, useParams } from 'next/navigation'
 
 interface ProjectData {
+  _id?: string
   name: string
   description: string
   location: string
@@ -12,6 +13,8 @@ interface ProjectData {
   type: string
   area: string
   images: string[]
+  detailImages?: string[]
+  floorPlans?: string[]
   mapUrl: string
   features: string[]
   overview?: {
@@ -172,13 +175,42 @@ export default function ProjectDetailPage() {
   const params = useParams()
   const slug = params?.slug as string
   const [currentImage, setCurrentImage] = useState(0)
+  const [currentDetailImage, setCurrentDetailImage] = useState(0)
   const [project, setProject] = useState<ProjectData | null>(null)
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    if (slug && projectsData[slug]) {
-      setProject(projectsData[slug])
+    const fetchProject = async () => {
+      try {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/properties/${slug}`)
+        if (res.ok) {
+          const data = await res.json()
+          setProject(data)
+        } else if (projectsData[slug]) {
+          setProject(projectsData[slug])
+        }
+      } catch (error) {
+        if (projectsData[slug]) {
+          setProject(projectsData[slug])
+        }
+      } finally {
+        setLoading(false)
+      }
     }
+    
+    if (slug) fetchProject()
   }, [slug])
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-brand-500 mx-auto mb-4"></div>
+          <p className="text-gray-600 dark:text-gray-400">Loading project...</p>
+        </div>
+      </div>
+    )
+  }
 
   if (!project) {
     return (
@@ -232,6 +264,14 @@ export default function ProjectDetailPage() {
       {/* Project Overview */}
       {project.overview && (
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+          {/* Project Description */}
+          <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-6 sm:p-8 mb-8">
+            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-4 sm:mb-6 text-center">Project Description</h2>
+            <p className="text-gray-600 dark:text-gray-300 text-base sm:text-lg leading-relaxed text-center max-w-4xl mx-auto break-words">
+              {project.description}
+            </p>
+          </div>
+
           <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8 mb-16">
             <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-8 text-center">Project Overview</h2>
             
@@ -239,19 +279,19 @@ export default function ProjectDetailPage() {
               <div className="space-y-6">
                 <div className="border-l-4 border-brand-500 pl-4">
                   <h3 className="text-lg font-semibold text-gray-700 dark:text-gray-300">Project Name</h3>
-                  <p className="text-2xl font-bold text-gray-900 dark:text-white">{project.overview.projectName}</p>
+                  <p className="text-2xl font-bold text-gray-900 dark:text-white">{project.overview?.projectName || project.name}</p>
                 </div>
                 <div className="border-l-4 border-brand-500 pl-4">
                   <h3 className="text-lg font-semibold text-gray-700 dark:text-gray-300">Project Type</h3>
-                  <p className="text-2xl font-bold text-gray-900 dark:text-white">{project.overview.projectType}</p>
+                  <p className="text-2xl font-bold text-gray-900 dark:text-white">{project.overview?.projectType || project.type}</p>
                 </div>
-                {project.overview.configuration && (
+                {project.overview?.configuration && (
                   <div className="border-l-4 border-brand-500 pl-4">
                     <h3 className="text-lg font-semibold text-gray-700 dark:text-gray-300">Configuration</h3>
                     <p className="text-xl font-bold text-gray-900 dark:text-white">{project.overview.configuration}</p>
                   </div>
                 )}
-                {project.overview.shops && (
+                {project.overview?.shops && (
                   <div className="border-l-4 border-brand-500 pl-4">
                     <h3 className="text-lg font-semibold text-gray-700 dark:text-gray-300">Shops</h3>
                     <p className="text-xl font-bold text-gray-900 dark:text-white">{project.overview.shops}</p>
@@ -260,7 +300,7 @@ export default function ProjectDetailPage() {
               </div>
 
               <div className="space-y-6">
-                {project.overview.deliveredTimeline && (
+                {project.overview?.deliveredTimeline && (
                   <div className="border-l-4 border-brand-500 pl-4">
                     <h3 className="text-lg font-semibold text-gray-700 dark:text-gray-300">Delivered Timeline</h3>
                     <p className="text-2xl font-bold text-gray-900 dark:text-white">{project.overview.deliveredTimeline}</p>
@@ -270,13 +310,13 @@ export default function ProjectDetailPage() {
                   <h3 className="text-lg font-semibold text-gray-700 dark:text-gray-300">Location</h3>
                   <p className="text-xl font-bold text-gray-900 dark:text-white">{project.location}</p>
                 </div>
-                {project.overview.parking && (
+                {project.overview?.parking && (
                   <div className="border-l-4 border-brand-500 pl-4">
                     <h3 className="text-lg font-semibold text-gray-700 dark:text-gray-300">Parking</h3>
                     <p className="text-xl font-bold text-gray-900 dark:text-white">{project.overview.parking}</p>
                   </div>
                 )}
-                {project.overview.finishingStatus && (
+                {project.overview?.finishingStatus && (
                   <div className="border-l-4 border-brand-500 pl-4">
                     <h3 className="text-lg font-semibold text-gray-700 dark:text-gray-300">Finishing Status</h3>
                     <p className="text-xl font-bold text-gray-900 dark:text-white">{project.overview.finishingStatus}</p>
@@ -289,8 +329,10 @@ export default function ProjectDetailPage() {
               <div className="mt-8 p-6 bg-brand-50 dark:bg-brand-900/20 rounded-xl">
                 <div className="text-center">
                   <p className="text-gray-700 dark:text-gray-300 text-lg mb-2">Starting Price</p>
-                  <p className="text-4xl font-bold text-brand-600 dark:text-brand-400">{project.price}</p>
-                  {project.overview.completionDate && (
+                  <p className="text-4xl font-bold text-brand-600 dark:text-brand-400">
+                    Starting from {project.price} ETB
+                  </p>
+                  {project.overview?.completionDate && (
                     <p className="text-gray-600 dark:text-gray-400 mt-2">Completion: {project.overview.completionDate}</p>
                   )}
                 </div>
@@ -326,30 +368,57 @@ export default function ProjectDetailPage() {
         </div>
       )}
 
-      {/* Floor Plans Section */}
+      {/* Floor Plans & Other Details Section */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
         <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-8 text-center">
           Floor Plans & Other Details
         </h2>
-        <div className="relative h-[500px] rounded-2xl overflow-hidden mb-6">
-          <Image src={project.images[currentImage]} alt={`Floor plan ${currentImage + 1}`} fill className="object-contain bg-gray-100 dark:bg-gray-800" />
-        </div>
-        <div className="grid grid-cols-3 md:grid-cols-6 gap-4">
-          {project.images.map((image, index) => (
-            <button
-              key={index}
-              onClick={() => setCurrentImage(index)}
-              className={`relative h-24 rounded-lg overflow-hidden transition-all duration-300 ${
-                currentImage === index ? 'ring-4 ring-brand-500 scale-105' : 'hover:scale-105 opacity-70 hover:opacity-100'
-              }`}
-            >
-              <Image src={image} alt={`Thumbnail ${index + 1}`} fill className="object-cover" />
-            </button>
-          ))}
-        </div>
-        <div className="text-center mt-8">
-          <p className="text-gray-600 dark:text-gray-400 mb-4">Click images to view detailed floor plans and project renders</p>
-        </div>
+        
+        {/* Floor Plans */}
+        {project.floorPlans && project.floorPlans.length > 0 && (
+          <div className="mb-12">
+            <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Floor Plans</h3>
+            <div className="relative h-[500px] rounded-2xl overflow-hidden mb-6">
+              <Image src={project.floorPlans[currentImage]} alt={`Floor plan ${currentImage + 1}`} fill className="object-contain bg-gray-100 dark:bg-gray-800" />
+            </div>
+            <div className="grid grid-cols-3 md:grid-cols-6 gap-4">
+              {project.floorPlans.map((image, index) => (
+                <button
+                  key={index}
+                  onClick={() => setCurrentImage(index)}
+                  className={`relative h-24 rounded-lg overflow-hidden transition-all duration-300 ${
+                    currentImage === index ? 'ring-4 ring-brand-500 scale-105' : 'hover:scale-105 opacity-70 hover:opacity-100'
+                  }`}
+                >
+                  <Image src={image} alt={`Floor plan ${index + 1}`} fill className="object-cover" />
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Detail Images */}
+        {project.detailImages && project.detailImages.length > 0 && (
+          <div>
+            <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Other Details</h3>
+            <div className="relative h-[500px] rounded-2xl overflow-hidden mb-6">
+              <Image src={project.detailImages[currentDetailImage]} alt={`Detail ${currentDetailImage + 1}`} fill className="object-contain bg-gray-100 dark:bg-gray-800" />
+            </div>
+            <div className="grid grid-cols-3 md:grid-cols-6 gap-4">
+              {project.detailImages.map((image, index) => (
+                <button
+                  key={index}
+                  onClick={() => setCurrentDetailImage(index)}
+                  className={`relative h-24 rounded-lg overflow-hidden transition-all duration-300 ${
+                    currentDetailImage === index ? 'ring-4 ring-brand-500 scale-105' : 'hover:scale-105 opacity-70 hover:opacity-100'
+                  }`}
+                >
+                  <Image src={image} alt={`Detail ${index + 1}`} fill className="object-cover" />
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Amenities Section */}

@@ -8,6 +8,7 @@ import profileRoutes from './routes/profileRoutes';
 import heroRoutes from './routes/heroRoutes';
 import aboutRoutes from './routes/aboutRoutes';
 import dashboardRoutes from './routes/dashboardRoutes';
+import propertyRoutes from './routes/propertyRoutes';
 
 dotenv.config({ debug: false });
 
@@ -47,6 +48,7 @@ app.use('/api/profile', profileRoutes);
 app.use('/api/hero', heroRoutes);
 app.use('/api/about', aboutRoutes);
 app.use('/api/dashboard', dashboardRoutes);
+app.use('/api/properties', propertyRoutes);
 
 // Connect to MongoDB and start server
 connectDB().then(() => {
