@@ -3,15 +3,15 @@ import mongoose from 'mongoose';
 const propertySchema = new mongoose.Schema({
   name: { type: String, required: true },
   slug: { type: String, required: true, unique: true },
-  description: { type: String, required: true },
+  description: { type: String, default: '' },
   location: { type: String, required: true },
   price: { type: String, default: '' },
   type: { type: String, required: true },
   category: { type: String, required: true, enum: ['apartments', 'commercial', 'villa'] },
-  area: { type: String, required: true },
+  area: { type: String, default: '' },
   images: [{ type: String }],
   detailImages: [{ type: String }],
-  mapUrl: { type: String, required: true },
+  mapUrl: { type: String, default: '' },
   tourVideo: { type: String, default: '' },
   features: [{ type: String }],
   overview: {

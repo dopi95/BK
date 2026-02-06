@@ -28,6 +28,7 @@ export const getPropertyBySlug = async (req: Request, res: Response) => {
 // Create property
 export const createProperty = async (req: Request, res: Response) => {
   try {
+    console.log('Creating property with data:', req.body);
     const files = req.files as any;
     const imageUrls: string[] = [];
     const detailImageUrls: string[] = [];
@@ -73,10 +74,15 @@ export const createProperty = async (req: Request, res: Response) => {
       floorPlans: floorPlanUrls
     };
 
+    console.log('Property data to save:', propertyData);
     const property = await Property.create(propertyData);
     res.status(201).json(property);
   } catch (error) {
-    res.status(500).json({ message: 'Failed to create property' });
+    console.error('Error creating property:', error);
+    res.status(500).json({ 
+      message: 'Failed to create property', 
+      error: error instanceof Error ? error.message : 'Unknown error' 
+    });
   }
 };
 
