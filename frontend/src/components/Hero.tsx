@@ -74,7 +74,7 @@ export default function Hero() {
 
 
       {/* Brand Name - Top Center */}
-      <div className="absolute top-4 sm:top-6 md:top-8 left-2 right-2 sm:left-4 sm:right-4 md:left-0 md:right-0 flex justify-center z-20">
+      <div className="absolute top-4 sm:top-6 md:top-8 left-2 right-2 sm:left-4 sm:right-4 md:left-0 md:right-0 flex justify-center z-20 pointer-events-none">
         <div className="text-center animate-brand-appear px-2" style={{marginTop: '48px'}}>
           <div className="text-4xl sm:text-4xl md:text-5xl lg:text-6xl font-bold drop-shadow-2xl font-hero">
             <div className="leading-tight text-transparent bg-gradient-to-r from-brand-400 via-brand-500 to-brand-600 bg-clip-text">ቤቶን ከእኛ</div>
@@ -103,12 +103,12 @@ export default function Hero() {
       </div>
 
       {/* Main Content */}
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 text-center pt-20 sm:pt-36 md:pt-48 lg:pt-52">
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 text-center pt-20 sm:pt-36 md:pt-48 lg:pt-52 pointer-events-none">
         <div className={`transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
           {/* Animated Buttons */}
-          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 md:gap-6 justify-center items-center animate-fade-in-up delay-500 px-2 mb-8 sm:mb-12 md:mb-16 mt-8 lg:mt-12 xl:mt-16 relative z-20">
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 md:gap-6 justify-center items-center animate-fade-in-up delay-500 px-2 mb-8 sm:mb-12 md:mb-16 mt-8 lg:mt-12 xl:mt-16 relative z-30 pointer-events-auto">
             <button 
-              className="w-full sm:w-auto sm:min-w-[180px] md:min-w-[200px] bg-gradient-to-r from-brand-500 to-brand-600 hover:from-brand-600 hover:to-brand-700 text-white px-4 sm:px-6 md:px-8 lg:px-10 py-3 sm:py-3.5 md:py-4 rounded-lg font-semibold shadow-lg transform hover:scale-105 transition-all duration-300 cursor-pointer font-button" 
+              className="w-full sm:w-auto sm:min-w-[180px] md:min-w-[200px] bg-gradient-to-r from-brand-500 to-brand-600 hover:from-brand-600 hover:to-brand-700 text-white px-4 sm:px-6 md:px-8 lg:px-10 py-3 sm:py-3.5 md:py-4 rounded-lg font-semibold shadow-lg transform hover:scale-105 transition-all duration-300 cursor-pointer font-button pointer-events-auto" 
               onClick={() => router.push('/contact')}
             >
               <span className="flex items-center justify-center space-x-2">
@@ -120,7 +120,7 @@ export default function Hero() {
             </button>
             
             <button 
-              className="w-full sm:w-auto sm:min-w-[180px] md:min-w-[200px] bg-white/10 backdrop-blur-md border border-brand-400 text-brand-400 hover:bg-brand-500 hover:text-white px-4 sm:px-6 md:px-8 lg:px-10 py-3 sm:py-3.5 md:py-4 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 cursor-pointer font-button" 
+              className="w-full sm:w-auto sm:min-w-[180px] md:min-w-[200px] bg-white/10 backdrop-blur-md border border-brand-400 text-brand-400 hover:bg-brand-500 hover:text-white px-4 sm:px-6 md:px-8 lg:px-10 py-3 sm:py-3.5 md:py-4 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 cursor-pointer font-button pointer-events-auto" 
               onClick={() => document.getElementById('properties')?.scrollIntoView({ behavior: 'smooth' })}
             >
               <span className="flex items-center justify-center space-x-2">
@@ -133,7 +133,7 @@ export default function Hero() {
           </div>
 
           {/* Stats and Slider Dots Container */}
-          <div className="flex flex-col lg:flex-row items-center justify-center gap-8 lg:gap-16 animate-fade-in-up delay-700">
+          <div className="flex flex-col lg:flex-row items-center justify-center gap-8 lg:gap-16 animate-fade-in-up delay-700 pointer-events-auto">
             {/* Animated Stats */}
             <div className="grid grid-cols-3 gap-2 sm:gap-4 md:gap-6 lg:gap-8 px-2">
               {stats.map((stat) => (
