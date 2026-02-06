@@ -306,6 +306,12 @@ export default function ProjectDetailPage() {
                     <p className="text-2xl font-bold text-gray-900 dark:text-white">{project.overview.deliveredTimeline}</p>
                   </div>
                 )}
+                {project.overview?.completionDate && (
+                  <div className="border-l-4 border-brand-500 pl-4">
+                    <h3 className="text-lg font-semibold text-gray-700 dark:text-gray-300">Completion Date</h3>
+                    <p className="text-2xl font-bold text-gray-900 dark:text-white">{project.overview.completionDate}</p>
+                  </div>
+                )}
                 <div className="border-l-4 border-brand-500 pl-4">
                   <h3 className="text-lg font-semibold text-gray-700 dark:text-gray-300">Location</h3>
                   <p className="text-xl font-bold text-gray-900 dark:text-white">{project.location}</p>
