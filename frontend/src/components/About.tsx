@@ -3,11 +3,13 @@
 import { useLanguage } from '@/contexts/LanguageContext'
 import { useState, useEffect } from 'react'
 import Image from 'next/image'
+import LoadingSpinner from './LoadingSpinner'
 
 export default function About() {
   const { t } = useLanguage()
   const [isVisible, setIsVisible] = useState(false)
   const [aboutImage, setAboutImage] = useState('/images/fanuel.jpg')
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     fetchAboutImage()
@@ -28,12 +30,23 @@ export default function About() {
   }, [])
 
   const fetchAboutImage = async () => {
+    setLoading(true)
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/about/image`)
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/about/image`, {
+        next: { revalidate: 3600 },
+        headers: { 'Cache-Control': 'public, max-age=3600' }
+      })
       const data = await res.json()
-      if (data?.imageUrl) setAboutImage(data.imageUrl)
+      if (data?.imageUrl) {
+        setAboutImage(data.imageUrl)
+        // Preload image
+        const img = new window.Image()
+        img.src = data.imageUrl
+      }
     } catch (error) {
-      // Silent fail
+      console.error('Failed to fetch about image')
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -111,6 +124,9 @@ export default function About() {
           <div className={`transition-all duration-1000 ${
             isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'
           }`}>
+            {loading ? (
+              <LoadingSpinner />
+            ) : (
             <div className="relative">
               {/* Profile Image */}
               <div className="relative w-80 h-80 mx-auto lg:mx-0 rounded-2xl overflow-hidden shadow-2xl">
@@ -118,8 +134,10 @@ export default function About() {
                   src={aboutImage}
                   alt="Fanuel - Sales"
                   fill
+                  sizes="(max-width: 1024px) 100vw, 50vw"
                   className="object-cover"
                   priority
+                  quality={85}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
               </div>
@@ -150,6 +168,7 @@ export default function About() {
                 ))}
               </div>
             </div>
+            )}
           </div>
 
           {/* Mission & Vision */}

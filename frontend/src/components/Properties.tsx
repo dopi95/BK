@@ -4,6 +4,7 @@ import { useLanguage } from '@/contexts/LanguageContext'
 import { useState, useEffect, useRef } from 'react'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
+import LoadingSpinner from './LoadingSpinner'
 
 interface Property {
   id: number | string
@@ -33,6 +34,7 @@ export default function Properties() {
   const [currentImageIndex, setCurrentImageIndex] = useState<{[key: string]: number}>({})
   const [detailImageIndex, setDetailImageIndex] = useState(0)
   const [activeFilter, setActiveFilter] = useState('all')
+  const [loading, setLoading] = useState(true)
   const videoRef = useRef<HTMLVideoElement>(null)
 
   useEffect(() => {
@@ -54,13 +56,16 @@ export default function Properties() {
   }, [])
 
   const fetchProperties = async () => {
+    setLoading(true)
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/properties`)
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/properties`, {
+        next: { revalidate: 300 },
+        headers: { 'Cache-Control': 'public, max-age=300' }
+      })
       const data = await res.json()
-      // Map API data to component format
       const mappedProperties = data.map((p: any) => ({
         id: p._id,
-        name: language === 'am' ? p.name : p.name,
+        name: p.name,
         description: p.description,
         location: p.location,
         price: p.price ? `Starting from ${p.price} ETB` : '',
@@ -75,8 +80,17 @@ export default function Properties() {
         slug: p.slug
       }))
       setProperties(mappedProperties)
+      // Preload first images
+      mappedProperties.slice(0, 3).forEach((p: Property) => {
+        if (p.images[0]) {
+          const img = new window.Image()
+          img.src = p.images[0]
+        }
+      })
     } catch (error) {
-      // Fallback to static data if API fails
+      console.error('Failed to fetch properties')
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -202,8 +216,11 @@ export default function Properties() {
           </div>
         </div>
 
+        {/* Loading State */}
+        {loading && <LoadingSpinner />}
+
         {/* Properties Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10">
+        {!loading && <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10">
           {displayedProperties.map((property, index) => (
             <div
               key={property.id}
@@ -220,7 +237,10 @@ export default function Properties() {
                   src={property.images[currentImageIndex[property.id as string] || 0]}
                   alt={property.name}
                   fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   className="object-cover transition-transform duration-500 group-hover:scale-110"
+                  loading="lazy"
+                  quality={75}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
                 
@@ -304,7 +324,7 @@ export default function Properties() {
               </div>
             </div>
           ))}
-        </div>
+        </div>}
 
         {/* Show More/Less Button */}
         <div className="text-center mt-12">

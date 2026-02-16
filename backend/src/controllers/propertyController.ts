@@ -2,20 +2,22 @@ import { Request, Response } from 'express';
 import Property from '../models/Property';
 import { v2 as cloudinary } from 'cloudinary';
 
-// Get all properties
+// Get all properties with lean query for faster response
 export const getAllProperties = async (req: Request, res: Response) => {
   try {
-    const properties = await Property.find().sort({ createdAt: -1 });
+    res.setHeader('Cache-Control', 'public, max-age=300, s-maxage=600, stale-while-revalidate=86400');
+    const properties = await Property.find().select('-__v').lean().sort({ createdAt: -1 });
     res.json(properties);
   } catch (error) {
     res.status(500).json({ message: 'Failed to fetch properties' });
   }
 };
 
-// Get property by slug
+// Get property by slug with lean query
 export const getPropertyBySlug = async (req: Request, res: Response) => {
   try {
-    const property = await Property.findOne({ slug: req.params.slug });
+    res.setHeader('Cache-Control', 'public, max-age=600, s-maxage=1200, stale-while-revalidate=86400');
+    const property = await Property.findOne({ slug: req.params.slug }).select('-__v').lean();
     if (!property) {
       return res.status(404).json({ message: 'Property not found' });
     }

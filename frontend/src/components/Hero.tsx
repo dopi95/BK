@@ -3,6 +3,7 @@
 import { useLanguage } from '@/contexts/LanguageContext'
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
+import LoadingSpinner from '@/components/LoadingSpinner'
 
 interface HeroSlide {
   _id: string
@@ -24,6 +25,7 @@ export default function Hero() {
   const [currentSlide, setCurrentSlide] = useState(0)
   const [slides, setSlides] = useState<HeroSlide[]>([])
   const [stats, setStats] = useState<HeroStat[]>([])
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     setIsVisible(true)
@@ -40,22 +42,40 @@ export default function Hero() {
   }, [slides])
 
   const fetchHeroData = async () => {
+    setLoading(true)
     try {
       const [slidesRes, statsRes] = await Promise.all([
-        fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/hero/slides`),
-        fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/hero/stats`)
+        fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/hero/slides`, {
+          next: { revalidate: 600 },
+          headers: { 'Cache-Control': 'public, max-age=600' }
+        }),
+        fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/hero/stats`, {
+          next: { revalidate: 600 },
+          headers: { 'Cache-Control': 'public, max-age=600' }
+        })
       ])
-      const slidesData = await slidesRes.json()
-      const statsData = await statsRes.json()
+      const [slidesData, statsData] = await Promise.all([slidesRes.json(), statsRes.json()])
       setSlides(slidesData)
       setStats(statsData)
+      // Preload images
+      slidesData.forEach((slide: HeroSlide) => {
+        const img = new window.Image()
+        img.src = slide.imageUrl
+      })
     } catch (error) {
-      // Silent fail
+      console.error('Failed to fetch hero data')
+    } finally {
+      setLoading(false)
     }
   }
 
   return (
     <section id="home" className="relative h-screen flex items-center justify-center overflow-hidden">
+      {loading && (
+        <div className="absolute inset-0 z-50 bg-gray-900 flex items-center justify-center">
+          <LoadingSpinner />
+        </div>
+      )}
       {/* Background Slider */}
       <div className="absolute inset-0 z-0">
         {slides.map((slide, index) => (

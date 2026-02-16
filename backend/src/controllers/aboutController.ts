@@ -4,7 +4,8 @@ import cloudinary from '../config/cloudinary'
 
 export const getAboutImage = async (req: Request, res: Response) => {
   try {
-    const aboutImage = await AboutImage.findOne()
+    res.setHeader('Cache-Control', 'public, max-age=3600, s-maxage=7200, stale-while-revalidate=86400')
+    const aboutImage = await AboutImage.findOne().select('-__v').lean()
     res.json(aboutImage)
   } catch (error) {
     res.status(500).json({ message: 'Server error' })

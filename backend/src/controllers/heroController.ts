@@ -5,7 +5,8 @@ import cloudinary from '../config/cloudinary'
 // Hero Slides
 export const getSlides = async (req: Request, res: Response) => {
   try {
-    const slides = await HeroSlide.find().sort({ order: 1 })
+    res.setHeader('Cache-Control', 'public, max-age=600, s-maxage=1200, stale-while-revalidate=86400')
+    const slides = await HeroSlide.find().select('-__v').lean().sort({ order: 1 })
     res.json(slides)
   } catch (error) {
     res.status(500).json({ message: 'Server error' })
@@ -78,7 +79,8 @@ export const deleteSlide = async (req: Request, res: Response) => {
 // Hero Stats
 export const getStats = async (req: Request, res: Response) => {
   try {
-    const stats = await HeroStat.find().sort({ order: 1 })
+    res.setHeader('Cache-Control', 'public, max-age=600, s-maxage=1200, stale-while-revalidate=86400')
+    const stats = await HeroStat.find().select('-__v').lean().sort({ order: 1 })
     res.json(stats)
   } catch (error) {
     res.status(500).json({ message: 'Server error' })
