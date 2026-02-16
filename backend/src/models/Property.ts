@@ -2,6 +2,7 @@ import mongoose from 'mongoose';
 
 const propertySchema = new mongoose.Schema({
   name: { type: String, required: true },
+  developer: { type: String, default: 'Akoya Properties' },
   slug: { type: String, required: true, unique: true },
   description: { type: String, default: '' },
   location: { type: String, required: true },

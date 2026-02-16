@@ -6,6 +6,7 @@ import AdminSidebar from '@/components/AdminSidebar'
 interface Property {
   _id: string
   name: string
+  developer: string
   slug: string
   description: string
   location: string
@@ -30,6 +31,7 @@ export default function PropertiesAdmin() {
   const [toast, setToast] = useState({ show: false, message: '', type: '' })
   const [formData, setFormData] = useState({
     name: '',
+    developer: '',
     slug: '',
     description: '',
     location: '',
@@ -82,6 +84,7 @@ export default function PropertiesAdmin() {
     
     const formDataToSend = new FormData()
     formDataToSend.append('name', formData.name)
+    formDataToSend.append('developer', formData.developer)
     formDataToSend.append('slug', formData.name.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, ''))
     formDataToSend.append('description', formData.description)
     formDataToSend.append('location', formData.location)
@@ -181,6 +184,7 @@ export default function PropertiesAdmin() {
       const reasons = property.investmentReasons || []
       setFormData({
         name: property.name,
+        developer: property.developer || '',
         slug: property.slug,
         description: property.description,
         location: property.location,
@@ -209,6 +213,7 @@ export default function PropertiesAdmin() {
       setEditingProperty(null)
       setFormData({
         name: '',
+        developer: '',
         slug: '',
         description: '',
         location: '',
@@ -307,7 +312,7 @@ export default function PropertiesAdmin() {
                   </div>
                 )}
                 <div className="p-4">
-                  <h3 className="text-lg sm:text-xl font-bold text-gray-900 dark:text-white mb-2 line-clamp-1">{property.name}</h3>
+                  <h3 className="text-lg sm:text-xl font-bold text-gray-900 dark:text-white mb-2 line-clamp-1">{property.name.split(' by ')[0]}</h3>
                   <p className="text-gray-600 dark:text-gray-300 text-xs sm:text-sm mb-2 line-clamp-1">
                     <svg className="w-3 h-3 sm:w-4 sm:h-4 inline mr-1" fill="currentColor" viewBox="0 0 20 20">
                       <path fillRule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clipRule="evenodd"/>
@@ -373,12 +378,24 @@ export default function PropertiesAdmin() {
                     <label className="block text-sm font-medium mb-1 text-gray-700 dark:text-gray-300">Property Name *</label>
                     <input
                       type="text"
-                      placeholder="e.g., Gold Souq by Akoya"
+                      placeholder="e.g., Gold Souq"
                       value={formData.name}
                       onChange={e => setFormData({...formData, name: e.target.value})}
                       className={inputClass}
                       required
                     />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium mb-1 text-gray-700 dark:text-gray-300">Developer *</label>
+                    <input
+                      type="text"
+                      placeholder="e.g., by Akoya Properties"
+                      value={formData.developer}
+                      onChange={e => setFormData({...formData, developer: e.target.value})}
+                      className={inputClass}
+                      required
+                    />
+                    <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">Will display as "Name Developer"</p>
                   </div>
                   <div>
                     <label className="block text-sm font-medium mb-1 text-gray-700 dark:text-gray-300">Category *</label>

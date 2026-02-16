@@ -7,6 +7,7 @@ import { useRouter, useParams } from 'next/navigation'
 interface ProjectData {
   _id?: string
   name: string
+  developer?: string
   description: string
   location: string
   price: string
@@ -249,8 +250,12 @@ export default function ProjectDetailPage() {
         </div>
         <div className="relative z-10 h-full flex items-center justify-center text-center px-4">
           <div>
-            <h1 className="text-5xl md:text-7xl font-bold text-white mb-4">{project.name.split(' by ')[0]}</h1>
-            <p className="text-xl md:text-2xl text-brand-100">by Akoya Properties</p>
+            <h1 className="text-5xl md:text-7xl font-bold text-white mb-4">
+              {project.name.includes(' by ') ? project.name.split(' by ')[0] : project.name}
+            </h1>
+            <p className="text-xl md:text-2xl text-brand-100">
+              {project.developer || (project.name.includes(' by ') ? 'by ' + project.name.split(' by ')[1] : 'by Akoya Properties')}
+            </p>
             <button
               onClick={() => router.push('/contact')}
               className="mt-8 bg-white text-brand-600 px-8 py-4 rounded-lg font-semibold hover:bg-brand-50 transition-all duration-300 transform hover:scale-105"
@@ -279,7 +284,7 @@ export default function ProjectDetailPage() {
               <div className="space-y-6">
                 <div className="border-l-4 border-brand-500 pl-4">
                   <h3 className="text-lg font-semibold text-gray-700 dark:text-gray-300">Project Name</h3>
-                  <p className="text-2xl font-bold text-gray-900 dark:text-white">{project.overview?.projectName || project.name}</p>
+                  <p className="text-2xl font-bold text-gray-900 dark:text-white">{project.overview?.projectName || (project.name.includes(' by ') ? project.name.split(' by ')[0] : project.name)}</p>
                 </div>
                 <div className="border-l-4 border-brand-500 pl-4">
                   <h3 className="text-lg font-semibold text-gray-700 dark:text-gray-300">Project Type</h3>
@@ -352,7 +357,7 @@ export default function ProjectDetailPage() {
       {project.investmentReasons && (
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-16">
           <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-12 text-center">
-            Why Invest in {project.name.split(' by ')[0]}?
+            Why Invest in {project.name.includes(' by ') ? project.name.split(' by ')[0] : project.name}?
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {project.investmentReasons.map((reason) => (

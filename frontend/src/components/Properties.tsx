@@ -268,7 +268,7 @@ export default function Properties() {
               {/* Property Details */}
               <div className="p-6">
                 <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2 group-hover:text-brand-600 transition-colors duration-300 font-heading break-words">
-                  {property.name}
+                  {property.name.split(' by ')[0]}
                 </h3>
                 <p className="text-gray-600 dark:text-gray-300 mb-4 font-body text-sm leading-relaxed break-words overflow-hidden">
                   {property.description.length > 120 ? `${property.description.substring(0, 120)}...` : property.description}
