@@ -4,7 +4,6 @@ import { useLanguage } from '@/contexts/LanguageContext'
 import { useState, useEffect, useRef } from 'react'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
-import LoadingSpinner from './LoadingSpinner'
 
 interface Property {
   id: number | string
@@ -56,7 +55,6 @@ export default function Properties() {
   }, [])
 
   const fetchProperties = async () => {
-    setLoading(true)
     try {
       const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/properties`, {
         next: { revalidate: 300 },
@@ -80,16 +78,20 @@ export default function Properties() {
         slug: p.slug
       }))
       setProperties(mappedProperties)
-      // Preload first images
-      mappedProperties.slice(0, 3).forEach((p: Property) => {
-        if (p.images[0]) {
+      setLoading(false)
+      // Preload ALL images from all properties for instant slider transitions
+      mappedProperties.forEach((p: Property, pIndex: number) => {
+        p.images.forEach((imgUrl: string, imgIndex: number) => {
           const img = new window.Image()
-          img.src = p.images[0]
-        }
+          img.src = imgUrl
+          // Priority load for first image of first 3 properties
+          if (pIndex < 3 && imgIndex === 0) {
+            img.loading = 'eager'
+          }
+        })
       })
     } catch (error) {
       console.error('Failed to fetch properties')
-    } finally {
       setLoading(false)
     }
   }
@@ -217,7 +219,11 @@ export default function Properties() {
         </div>
 
         {/* Loading State */}
-        {loading && <LoadingSpinner />}
+        {loading && (
+          <div className="flex items-center justify-center py-8">
+            <div className="w-10 h-10 border-3 border-brand-200 border-t-brand-600 rounded-full animate-spin"></div>
+          </div>
+        )}
 
         {/* Properties Grid */}
         {!loading && <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10">
@@ -239,8 +245,10 @@ export default function Properties() {
                   fill
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   className="object-cover transition-transform duration-500 group-hover:scale-110"
-                  loading="lazy"
-                  quality={75}
+                  loading={index < 3 ? 'eager' : 'lazy'}
+                  priority={index < 3}
+                  quality={85}
+                  style={{ willChange: 'transform' }}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
                 

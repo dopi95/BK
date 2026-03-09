@@ -3,12 +3,12 @@ import mongoose from 'mongoose';
 const propertySchema = new mongoose.Schema({
   name: { type: String, required: true },
   developer: { type: String, default: 'Akoya Properties' },
-  slug: { type: String, required: true, unique: true },
+  slug: { type: String, required: true, unique: true, index: true },
   description: { type: String, default: '' },
   location: { type: String, required: true },
   price: { type: String, default: '' },
   type: { type: String, required: true },
-  category: { type: String, required: true, enum: ['apartments', 'commercial', 'villa'] },
+  category: { type: String, required: true, enum: ['apartments', 'commercial', 'villa'], index: true },
   area: { type: String, default: '' },
   images: [{ type: String }],
   detailImages: [{ type: String }],
@@ -32,5 +32,7 @@ const propertySchema = new mongoose.Schema({
   }],
   floorPlans: [{ type: String }]
 }, { timestamps: true });
+
+propertySchema.index({ createdAt: -1 });
 
 export default mongoose.model('Property', propertySchema);

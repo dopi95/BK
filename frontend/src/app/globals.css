@@ -38,6 +38,16 @@ body {
     rgb(var(--background-start-rgb));
 }
 
+/* Performance Optimizations */
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+img, video {
+  content-visibility: auto;
+}
+
 /* Responsive Typography for Hero Text */
 @layer utilities {
   .hero-tagline {

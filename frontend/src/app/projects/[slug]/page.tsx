@@ -187,15 +187,47 @@ export default function ProjectDetailPage() {
         if (res.ok) {
           const data = await res.json()
           setProject(data)
+          setLoading(false)
+          // Preload all images after data loads
+          if (data.images) {
+            data.images.forEach((img: string) => {
+              const image = new window.Image()
+              image.src = img
+            })
+          }
+          if (data.detailImages) {
+            data.detailImages.forEach((img: string) => {
+              const image = new window.Image()
+              image.src = img
+            })
+          }
+          if (data.floorPlans) {
+            data.floorPlans.forEach((img: string) => {
+              const image = new window.Image()
+              image.src = img
+            })
+          }
         } else if (projectsData[slug]) {
           setProject(projectsData[slug])
+          setLoading(false)
+          // Preload static images
+          const proj = projectsData[slug]
+          proj.images.forEach((img: string) => {
+            const image = new window.Image()
+            image.src = img
+          })
         }
       } catch (error) {
         if (projectsData[slug]) {
           setProject(projectsData[slug])
+          setLoading(false)
+          // Preload static images
+          const proj = projectsData[slug]
+          proj.images.forEach((img: string) => {
+            const image = new window.Image()
+            image.src = img
+          })
         }
-      } finally {
-        setLoading(false)
       }
     }
     
@@ -205,10 +237,7 @@ export default function ProjectDetailPage() {
   if (loading) {
     return (
       <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-brand-500 mx-auto mb-4"></div>
-          <p className="text-gray-600 dark:text-gray-400">Loading project...</p>
-        </div>
+        <div className="w-10 h-10 border-3 border-brand-200 border-t-brand-600 rounded-full animate-spin"></div>
       </div>
     )
   }
@@ -246,7 +275,15 @@ export default function ProjectDetailPage() {
       {/* Hero Section */}
       <div className="relative h-[60vh] bg-gradient-to-r from-brand-600 to-brand-800">
         <div className="absolute inset-0">
-          <Image src={project.images[0]} alt={project.name} fill className="object-cover opacity-30" />
+          <Image 
+            src={project.images[0]} 
+            alt={project.name} 
+            fill 
+            className="object-cover opacity-30" 
+            priority
+            quality={90}
+            style={{ willChange: 'opacity' }}
+          />
         </div>
         <div className="relative z-10 h-full flex items-center justify-center text-center px-4">
           <div>
@@ -390,7 +427,15 @@ export default function ProjectDetailPage() {
           <div className="mb-12">
             <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Floor Plans</h3>
             <div className="relative h-[500px] rounded-2xl overflow-hidden mb-6">
-              <Image src={project.floorPlans[currentImage]} alt={`Floor plan ${currentImage + 1}`} fill className="object-contain bg-gray-100 dark:bg-gray-800" />
+              <Image 
+                src={project.floorPlans[currentImage]} 
+                alt={`Floor plan ${currentImage + 1}`} 
+                fill 
+                className="object-contain bg-gray-100 dark:bg-gray-800" 
+                priority={currentImage === 0}
+                quality={90}
+                style={{ willChange: 'opacity' }}
+              />
             </div>
             <div className="grid grid-cols-3 md:grid-cols-6 gap-4">
               {project.floorPlans.map((image, index) => (
@@ -401,7 +446,14 @@ export default function ProjectDetailPage() {
                     currentImage === index ? 'ring-4 ring-brand-500 scale-105' : 'hover:scale-105 opacity-70 hover:opacity-100'
                   }`}
                 >
-                  <Image src={image} alt={`Floor plan ${index + 1}`} fill className="object-cover" />
+                  <Image 
+                    src={image} 
+                    alt={`Floor plan ${index + 1}`} 
+                    fill 
+                    className="object-cover" 
+                    loading={index < 6 ? 'eager' : 'lazy'}
+                    quality={75}
+                  />
                 </button>
               ))}
             </div>
@@ -413,7 +465,15 @@ export default function ProjectDetailPage() {
           <div>
             <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Other Details</h3>
             <div className="relative h-[500px] rounded-2xl overflow-hidden mb-6">
-              <Image src={project.detailImages[currentDetailImage]} alt={`Detail ${currentDetailImage + 1}`} fill className="object-contain bg-gray-100 dark:bg-gray-800" />
+              <Image 
+                src={project.detailImages[currentDetailImage]} 
+                alt={`Detail ${currentDetailImage + 1}`} 
+                fill 
+                className="object-contain bg-gray-100 dark:bg-gray-800" 
+                priority={currentDetailImage === 0}
+                quality={90}
+                style={{ willChange: 'opacity' }}
+              />
             </div>
             <div className="grid grid-cols-3 md:grid-cols-6 gap-4">
               {project.detailImages.map((image, index) => (
@@ -424,7 +484,14 @@ export default function ProjectDetailPage() {
                     currentDetailImage === index ? 'ring-4 ring-brand-500 scale-105' : 'hover:scale-105 opacity-70 hover:opacity-100'
                   }`}
                 >
-                  <Image src={image} alt={`Detail ${index + 1}`} fill className="object-cover" />
+                  <Image 
+                    src={image} 
+                    alt={`Detail ${index + 1}`} 
+                    fill 
+                    className="object-cover" 
+                    loading={index < 6 ? 'eager' : 'lazy'}
+                    quality={75}
+                  />
                 </button>
               ))}
             </div>

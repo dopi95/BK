@@ -3,7 +3,6 @@
 import { useLanguage } from '@/contexts/LanguageContext'
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
-import LoadingSpinner from '@/components/LoadingSpinner'
 
 interface HeroSlide {
   _id: string
@@ -42,7 +41,6 @@ export default function Hero() {
   }, [slides])
 
   const fetchHeroData = async () => {
-    setLoading(true)
     try {
       const [slidesRes, statsRes] = await Promise.all([
         fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/hero/slides`, {
@@ -57,14 +55,18 @@ export default function Hero() {
       const [slidesData, statsData] = await Promise.all([slidesRes.json(), statsRes.json()])
       setSlides(slidesData)
       setStats(statsData)
-      // Preload images
-      slidesData.forEach((slide: HeroSlide) => {
+      setLoading(false)
+      // Preload ALL images immediately for instant transitions
+      slidesData.forEach((slide: HeroSlide, index: number) => {
         const img = new window.Image()
         img.src = slide.imageUrl
+        // Priority load for first 2 images
+        if (index < 2) {
+          img.loading = 'eager'
+        }
       })
     } catch (error) {
       console.error('Failed to fetch hero data')
-    } finally {
       setLoading(false)
     }
   }
@@ -73,7 +75,7 @@ export default function Hero() {
     <section id="home" className="relative h-screen flex items-center justify-center overflow-hidden">
       {loading && (
         <div className="absolute inset-0 z-50 bg-gray-900 flex items-center justify-center">
-          <LoadingSpinner />
+          <div className="w-10 h-10 border-3 border-brand-200 border-t-brand-600 rounded-full animate-spin"></div>
         </div>
       )}
       {/* Background Slider */}
@@ -85,7 +87,13 @@ export default function Hero() {
               index === currentSlide ? 'opacity-100' : 'opacity-0'
             }`}
           >
-            <div className="absolute inset-0 bg-cover bg-center" style={{backgroundImage: `url(${slide.imageUrl})`}}></div>
+            <div 
+              className="absolute inset-0 bg-cover bg-center" 
+              style={{
+                backgroundImage: `url(${slide.imageUrl})`,
+                willChange: index === currentSlide || index === (currentSlide + 1) % slides.length ? 'opacity' : 'auto'
+              }}
+            ></div>
             <div className="absolute inset-0 bg-black/60"></div>
           </div>
         ))}

@@ -35,10 +35,10 @@ app.use(cors({
   },
   credentials: true
 }));
-app.use(compression());
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(fileUpload({ useTempFiles: true, tempFileDir: '/tmp/' }));
+app.use(compression({ level: 6, threshold: 1024 }));
+app.use(express.json({ limit: '10mb' }));
+app.use(express.urlencoded({ extended: true, limit: '10mb' }));
+app.use(fileUpload({ useTempFiles: true, tempFileDir: '/tmp/', limits: { fileSize: 10 * 1024 * 1024 } }));
 
 // Routes
 app.get('/', (req: Request, res: Response) => {

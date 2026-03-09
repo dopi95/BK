@@ -3,7 +3,6 @@
 import { useLanguage } from '@/contexts/LanguageContext'
 import { useState, useEffect } from 'react'
 import Image from 'next/image'
-import LoadingSpinner from './LoadingSpinner'
 
 export default function About() {
   const { t } = useLanguage()
@@ -30,7 +29,6 @@ export default function About() {
   }, [])
 
   const fetchAboutImage = async () => {
-    setLoading(true)
     try {
       const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/about/image`, {
         next: { revalidate: 3600 },
@@ -43,9 +41,9 @@ export default function About() {
         const img = new window.Image()
         img.src = data.imageUrl
       }
+      setLoading(false)
     } catch (error) {
       console.error('Failed to fetch about image')
-    } finally {
       setLoading(false)
     }
   }
@@ -125,7 +123,9 @@ export default function About() {
             isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'
           }`}>
             {loading ? (
-              <LoadingSpinner />
+              <div className="flex items-center justify-center py-8">
+                <div className="w-10 h-10 border-3 border-brand-200 border-t-brand-600 rounded-full animate-spin"></div>
+              </div>
             ) : (
             <div className="relative">
               {/* Profile Image */}
